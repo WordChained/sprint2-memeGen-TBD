@@ -30,11 +30,9 @@ function createImages(size) {
     //2 cause we started with one image already set
     //TODO: figure out when to push keywords to memes
     for (var i = 1; i < size + 1; i++) {
-
-
         gImgs.push({
             id: i,
-            url: `../img/meme-imgs (square)/${i}.jpg`,
+            url: `img/meme-imgs (square)/${i}.jpg`,
             keywords: []
         })
     }
@@ -49,6 +47,7 @@ function resizeCanvas() {
 
 function loadImgToCanvas() {
     console.log(gMeme.selectedImgId)
+
     var image = _findImgById(gMeme.selectedImgId);
     drawImg(image.url);
 
