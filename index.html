@@ -41,9 +41,14 @@
             <canvas class="canvas" onclick="OnTextPick(event)"></canvas>
         </div>
         <div class="interface">
-            <form action="">
-                <input class="meme-text" type="text" oninput="onTextInput(this.value)" onkeydown="submitText(event)">
-            </form>
+
+            <input class="meme-text" type="text" oninput="onTextInput(this.value)" onkeydown="onSubmitText(event,this)">
+            <button value="1" class="plus" onclick="onSizeChange(this.value)">➕</button>
+            <button value="-1" class="minus" onclick="onSizeChange(this.value)">➖</button>
+            <button class="clear" onclick="onClearCanvas()">CLEAR</button>
+            <button value="1" class="move" onclick="onPositionChange(this.value)">🔁</button>
+            <button value="-10" class="up" onclick="onMoveText(this.value)">⬆</button>
+            <button value="10" class="down" onclick="onMoveText(this.value)">⬇</button>
         </div>
 
     </div>

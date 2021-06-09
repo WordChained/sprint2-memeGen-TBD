@@ -1,8 +1,9 @@
 'use strict';
 
-var gCurrUserText;
+var gCurrText = {};
+
 var gAlignment = 'center'
-var gNumOfTextLines = 1;
+var gSize = 40;
 
 var gKeywords = {
     'happy': 12,
@@ -18,12 +19,11 @@ var gImgs = [{
 var gMeme = {
     selectedImgId: 5,
     selectedLineIdx: 0,
-    lines: [{
-        txt: 'I never eat Falafel',
-        size: 20,
-        align: 'left',
-        color: 'red'
-    }]
+    lines: []
+        // txt: 'I never eat Falafel',
+        //     size: gSize,
+        //     align: 'left',
+        //     color: 'red'
 }
 
 function createImages(size) {
@@ -46,11 +46,8 @@ function resizeCanvas() {
 }
 
 function loadImgToCanvas() {
-    console.log(gMeme.selectedImgId)
-
     var image = _findImgById(gMeme.selectedImgId);
     drawImg(image.url);
-
 }
 
 function _findImgById(id) {
@@ -60,39 +57,64 @@ function _findImgById(id) {
 function drawImg(meme) {
     var img = new Image()
     img.src = meme;
-    console.log(img.src)
     img.onload = () => {
         gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height)
     }
 }
 
-function drawText(text) {
-    // clearText()
+function submitText(ev, input) {
+    if (ev.keyCode === 13) {
+        ev.preventDefault();
+        drawText(gCurrText.txt);
+        gMeme.selectedLineIdx++;
+        console.log(gMeme.selectedLineIdx);
+        input.value = '';
+    }
+}
 
+function drawText(text) {
+    //TODO: set user offsetX
+    //TODO: add randomInt to the default between 50 - 350
     var x = gCanvas.width / 2;
     var y;
-    switch (gNumOfTextLines) {
-        case 1:
+
+    switch (gMeme.selectedLineIdx) {
+        case 0:
             y = gCanvas.height / 4;
             break;
-        case 2:
-            y = gCanvas.height / 0.4;
+        case 1:
+            y = gCanvas.height - 50;
             break;
-        case 3:
+        case 2:
             y = gCanvas.height / 2;
+            break;
+        default:
+            y = gCanvas.height - 100;
             break;
     }
     gCtx.lineWidth = 2
     gCtx.strokeStyle = 'black'
     gCtx.fillStyle = 'white'
-    gCtx.font = '40px Impact'
+    gCtx.font = gSize + 'px Impact'
     gCtx.textAlign = gAlignment
     gCtx.fillText(text, x, y)
     gCtx.strokeText(text, x, y)
+        // gCtx.strokeRect(x - 175, y - 50, 350, 70);
+    gMeme.lines.push({
+        txt: text,
+        size: gSize,
+        align: 'left',
+        color: 'red'
+    })
+    gCurrText = {
+        txt: text,
+        x: x,
+        y: y
+    }
 }
 
 function setUserText(text) {
-    gCurrUserText = text
+    gCurrText.txt = text
 }
 
 function addAttributeToImgs() {
@@ -111,4 +133,49 @@ function showEditor() {
     var elGallery = document.querySelector('.gallery-container');
     elGallery.style.display = 'none';
     elEditor.style.display = 'grid'
+}
+
+function clearCanvas() {
+    gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height);
+}
+
+function changeSize(elSize) {
+    if (elSize > 0) {
+        if (gSize > 70) return
+        gSize += 5;
+    } else {
+        if (gSize <= 30) return
+        gSize -= 5
+    }
+    gMeme = gSize;
+}
+
+// function changeTextPosition(position) {
+//     console.log(position)
+//     var textIdx = gMeme.lines.findIndex((meme, idx) => {
+//             if (idx + position === meme.selectedLineIdx);
+//             console.log(meme.txt)
+//             return meme.txt
+//         })
+//         // gMeme.selectedLineIdx = textIdx;
+
+// }
+
+function moveText(value) {
+    clearCanvas()
+    loadImgToCanvas()
+    setTimeout(() => {
+
+        console.log((+gCurrText.y) + (+value))
+
+        gCtx.lineWidth = 2
+        gCtx.strokeStyle = 'black'
+        gCtx.fillStyle = 'white'
+        gCtx.font = gSize + 'px Impact'
+        gCtx.textAlign = gAlignment
+        gCtx.fillText(gCurrText.txt, gCurrText.x, +gCurrText.y + +value)
+        gCtx.strokeText(gCurrText.txt, gCurrText.x, +gCurrText.y + +value)
+
+        gCurrText.y = +gCurrText.y + +value;
+    }, 100)
 }

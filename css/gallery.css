@@ -6,8 +6,8 @@
 /* Gallery */
 
 .gallery-container {
-    /* display: none; */
-    display: grid;
+    display: none;
+    /* display: grid; */
 }
 
 .gallery-container img.meme {

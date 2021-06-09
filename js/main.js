@@ -4,12 +4,10 @@ var gCtx;
 
 function onInit() {
     createImages(18);
-    console.log(gImgs);
     addAttributeToImgs()
     gCanvas = document.querySelector('.canvas');
     gCtx = gCanvas.getContext('2d');
     resizeCanvas()
-    console.log(gCtx)
     window.addEventListener('resize', function() {
         gCanvas.width = window.innerWidth
         gCanvas.height = window.innerHeight
@@ -25,16 +23,19 @@ function OnTextPick(ev) {
     console.log('x:', x, 'y:', y)
 }
 
+// when we type
 function onTextInput(text) {
     setUserText(text)
 }
+//needs to move to service!!
+//when we hit enter
 
-function submitText(ev) {
-    console.log(ev.keyCode)
-    if (ev.keyCode === 13) {
-        ev.preventDefault()
-        drawText(gCurrUserText);
-    }
+function onSubmitText(ev, input) {
+    submitText(ev, input)
+}
+
+function onSizeChange(elSize) {
+    changeSize(elSize)
 }
 
 function onImgClick(elImg) {
@@ -42,4 +43,17 @@ function onImgClick(elImg) {
     loadImgToCanvas()
     showEditor();
     resizeCanvas()
+}
+
+function onClearCanvas() {
+    clearCanvas()
+    loadImgToCanvas()
+}
+
+// function onPositionChange(elPosition) {
+//     changeTextPosition(elPosition)
+// }
+
+function onMoveText(value) {
+    moveText(value)
 }
