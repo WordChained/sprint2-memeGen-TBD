@@ -34,7 +34,7 @@ function createImages(size) {
 
         gImgs.push({
             id: i,
-            url: `img/meme-imgs (square)/${i}.jpg`,
+            url: `./img/meme-imgs (square)/${i}.jpg`,
             keywords: []
         })
     }
@@ -61,6 +61,7 @@ function _findImgById(id) {
 function drawImg(meme) {
     var img = new Image()
     img.src = meme;
+    console.log(img.src)
     img.onload = () => {
         gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height)
     }
