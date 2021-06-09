@@ -1,21 +1,45 @@
 'use strict';
+var gCanvas;
+var gCtx;
 
-var gKeywords = {
-    'happy': 12,
-    'funny puk': 1
+function onInit() {
+    createImages(18);
+    console.log(gImgs);
+    addAttributeToImgs()
+    gCanvas = document.querySelector('.canvas');
+    gCtx = gCanvas.getContext('2d');
+    resizeCanvas()
+    console.log(gCtx)
+    window.addEventListener('resize', function() {
+        gCanvas.width = window.innerWidth
+        gCanvas.height = window.innerHeight
+        resizeCanvas()
+        loadImgToCanvas();
+    })
+    loadImgToCanvas();
 }
-var gImgs = [{
-    id: 1,
-    url: '/img/meme-imgs (square)/1.jpg',
-    keywords: ['happy']
-}];
-var gMeme = {
-    selectedImgId: 5,
-    selectedLineIdx: 0,
-    lines: [{
-        txt: 'I never eat Falafel',
-        size: 20,
-        align: 'left',
-        color: 'red'
-    }]
+
+function OnTextPick(ev) {
+    var x = ev.offsetX
+    var y = ev.offsetY
+    console.log('x:', x, 'y:', y)
+}
+
+function onTextInput(text) {
+    setUserText(text)
+}
+
+function submitText(ev) {
+    console.log(ev.keyCode)
+    if (ev.keyCode === 13) {
+        ev.preventDefault()
+        drawText(gCurrUserText);
+    }
+}
+
+function onImgClick(elImg) {
+    getImg(elImg)
+    loadImgToCanvas()
+    showEditor();
+    resizeCanvas()
 }
