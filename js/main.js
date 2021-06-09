@@ -40,19 +40,19 @@ function onSizeChange(elSize) {
 
 function onImgClick(elImg) {
     getImg(elImg)
-    loadImgToCanvas()
-    showEditor();
     resizeCanvas()
+    renderCanvas();
+    showEditor();
 }
 
 function onClearCanvas() {
     clearCanvas()
-    loadImgToCanvas()
+    renderCanvas()
 }
 
-// function onPositionChange(elPosition) {
-//     changeTextPosition(elPosition)
-// }
+function onSwitchLine(elPosition) {
+    switchLine(elPosition)
+}
 
 function onMoveText(value) {
     moveText(value)

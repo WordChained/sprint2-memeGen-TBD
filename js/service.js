@@ -23,7 +23,12 @@ var gMeme = {
         // txt: 'I never eat Falafel',
         //     size: gSize,
         //     align: 'left',
-        //     color: 'red'
+        //     color: 'red',
+        //pos: {x:x,y:y}
+}
+
+function renderCanvas() {
+    loadImgToCanvas()
 }
 
 function createImages(size) {
@@ -65,7 +70,7 @@ function drawImg(meme) {
 function submitText(ev, input) {
     if (ev.keyCode === 13) {
         ev.preventDefault();
-        drawText(gCurrText.txt);
+        drawText(input.value);
         gMeme.selectedLineIdx++;
         console.log(gMeme.selectedLineIdx);
         input.value = '';
@@ -99,12 +104,14 @@ function drawText(text) {
     gCtx.textAlign = gAlignment
     gCtx.fillText(text, x, y)
     gCtx.strokeText(text, x, y)
+        //this needs to be set up by gMeme.pos(x and y), to cover the sentence
         // gCtx.strokeRect(x - 175, y - 50, 350, 70);
     gMeme.lines.push({
         txt: text,
         size: gSize,
         align: 'left',
-        color: 'red'
+        color: 'red',
+        pos: { x: x, y: y }
     })
     gCurrText = {
         txt: text,
@@ -150,20 +157,21 @@ function changeSize(elSize) {
     gMeme = gSize;
 }
 
-// function changeTextPosition(position) {
-//     console.log(position)
-//     var textIdx = gMeme.lines.findIndex((meme, idx) => {
-//             if (idx + position === meme.selectedLineIdx);
-//             console.log(meme.txt)
-//             return meme.txt
-//         })
-//         // gMeme.selectedLineIdx = textIdx;
+function switchLine(position) {
+    console.log(position)
+    console.log(gMeme.lines);
+    var textIdx = gMeme.lines.findIndex((meme, idx) => {
+        if (idx + position === meme.selectedLineIdx);
+        console.log(meme.txt)
+        return meme.txt
+    })
+    gMeme.selectedLineIdx = textIdx;
 
-// }
+}
 
 function moveText(value) {
     clearCanvas()
-    loadImgToCanvas()
+    renderCanvas()
     setTimeout(() => {
 
         console.log((+gCurrText.y) + (+value))
