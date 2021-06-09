@@ -29,6 +29,18 @@ var gMeme = {
 
 function renderCanvas() {
     loadImgToCanvas()
+    setTimeout(() => {
+        gMeme.lines.map(meme => {
+
+            gCtx.lineWidth = 2
+            gCtx.strokeStyle = 'black'
+            gCtx.fillStyle = 'white'
+            gCtx.font = gSize + 'px Impact'
+            gCtx.textAlign = gAlignment
+            gCtx.fillText(meme.txt, meme.pos.x, meme.pos.y)
+            gCtx.strokeText(meme.txt, meme.pos.x, meme.pos.y)
+        })
+    }, 1)
 }
 
 function createImages(size) {
@@ -107,6 +119,7 @@ function drawText(text) {
         //this needs to be set up by gMeme.pos(x and y), to cover the sentence
         // gCtx.strokeRect(x - 175, y - 50, 350, 70);
     gMeme.lines.push({
+        id: gMeme.selectedLineIdx,
         txt: text,
         size: gSize,
         align: 'left',
@@ -114,6 +127,7 @@ function drawText(text) {
         pos: { x: x, y: y }
     })
     gCurrText = {
+        id: gMeme.selectedLineIdx,
         txt: text,
         x: x,
         y: y
@@ -154,24 +168,16 @@ function changeSize(elSize) {
         if (gSize <= 30) return
         gSize -= 5
     }
-    gMeme = gSize;
+    renderCanvas()
 }
-
-function switchLine(position) {
-    console.log(position)
-    console.log(gMeme.lines);
-    var textIdx = gMeme.lines.findIndex((meme, idx) => {
-        if (idx + position === meme.selectedLineIdx);
-        console.log(meme.txt)
-        return meme.txt
-    })
-    gMeme.selectedLineIdx = textIdx;
+//move is +1
+function switchLine(move) {
 
 }
 
 function moveText(value) {
     clearCanvas()
-    renderCanvas()
+    loadImgToCanvas()
     setTimeout(() => {
 
         console.log((+gCurrText.y) + (+value))
@@ -185,5 +191,14 @@ function moveText(value) {
         gCtx.strokeText(gCurrText.txt, gCurrText.x, +gCurrText.y + +value)
 
         gCurrText.y = +gCurrText.y + +value;
-    }, 100)
+    }, 1)
 }
+
+// function _makeId(length = 4) {
+//     var txt = '';
+//     var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+//     for (var i = 0; i < length; i++) {
+//         txt += possible.charAt(Math.floor(Math.random() * possible.length));
+//     }
+//     return txt;
+// }

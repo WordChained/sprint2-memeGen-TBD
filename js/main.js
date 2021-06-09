@@ -47,7 +47,8 @@ function onImgClick(elImg) {
 
 function onClearCanvas() {
     clearCanvas()
-    renderCanvas()
+    loadImgToCanvas()
+    gMeme.selectedLineIdx = 0;
 }
 
 function onSwitchLine(elPosition) {
