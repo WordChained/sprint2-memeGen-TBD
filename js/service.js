@@ -34,7 +34,7 @@ function createImages(size) {
 
         gImgs.push({
             id: i,
-            url: `./img/meme-imgs (square)/${i}.jpg`,
+            url: `../img/meme-imgs (square)/${i}.jpg`,
             keywords: []
         })
     }
