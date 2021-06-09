@@ -10,7 +10,7 @@ var gKeywords = {
 }
 var gImgs = [{
         id: 0,
-        url: '/img/meme-imgs (square)/0.jpg',
+        url: 'img/meme-imgs (square)/0.jpg',
         keywords: ['happy']
     },
 
@@ -34,7 +34,7 @@ function createImages(size) {
 
         gImgs.push({
             id: i,
-            url: `/img/meme-imgs (square)/${i}.jpg`,
+            url: `img/meme-imgs (square)/${i}.jpg`,
             keywords: []
         })
     }
