@@ -426,7 +426,7 @@ button {
         grid-column: 1/2;
         width: 10.15rem;
         height: 52px;
-        background-image: url('"./img/meme-editor.png"');
+        background-image: url("./img/meme-editor.png");
         background-position: -730px -573px;
         border-radius: 20px;
         box-shadow: 1px 1px 3px #c4cccb;
