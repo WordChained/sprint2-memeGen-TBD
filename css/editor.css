@@ -255,6 +255,7 @@ button {
 @media (max-width:740px) {
     .editor-container {
         display: none;
+        z-index: -1;
     }
     .editor-container::before {
         content: "";
@@ -285,7 +286,7 @@ button {
         display: grid;
         border: black solid 2px;
         border-radius: 10px;
-        grid-template-areas: "text text text text text" ". move clear delete ." "inner inner inner inner inner" "inner inner inner inner inner" "footer footer footer footer footer";
+        grid-template-areas: "text text text text text" ". move clear delete ." "inner inner inner inner inner" "inner inner inner inner inner" "inner inner inner inner inner" "footer footer footer footer footer";
         grid-template-rows: repeat(6, 1fr);
         grid-template-columns: repeat(5, 1fr);
         position: absolute;
@@ -293,6 +294,7 @@ button {
         left: 15%;
         width: 350px;
         height: 350px;
+        gap: 4px;
     }
     .meme-text {
         grid-area: text;
@@ -305,8 +307,8 @@ button {
     }
     .plus {
         grid-column: span 1;
-        width: 4.2em;
-        height: 3.9em;
+        width: 56px;
+        height: 52px;
         background-image: url(/img/meme\ editor.png);
         background-position: -723px -298px;
         border-radius: 10px;
@@ -314,8 +316,8 @@ button {
     }
     .minus {
         grid-column: span 1;
-        width: 3.4rem;
-        height: 3.2rem;
+        width: 56px;
+        height: 52px;
         background-image: url(/img/meme\ editor.png);
         border-radius: 10px;
         background-position: -812px -298px;
@@ -323,8 +325,8 @@ button {
     }
     .move {
         grid-area: move;
-        width: 3.35rem;
-        height: 3.25rem;
+        width: 56px;
+        height: 52px;
         background-image: url(/img/meme\ editor.png);
         background-position: -822px -205px;
         border-radius: 10px;
@@ -332,31 +334,31 @@ button {
     }
     .clear {
         grid-area: clear;
-        width: 3.0rem;
-        height: 2.8rem;
+        width: 56px;
+        height: 52px;
         background-color: rgb(231, 69, 96);
         border-radius: 10px;
         box-shadow: 1px 1px 3px #c4cccb;
     }
     .delete-row {
         grid-area: delete;
-        width: 4.2rem;
-        height: 4rem;
+        width: 56px;
+        height: 52px;
         background-image: url(/img/meme\ editor.png);
         background-position: -980px -205px;
         border-radius: 10px;
         box-shadow: 1px 1px 3px #c4cccb;
     }
     .font-family {
-        grid-column: span 2;
+        grid-column: span 5;
         height: 3.25em;
         border-radius: 10px;
         box-shadow: 1px 1px 3px #c4cccb;
     }
     .color {
         grid-column: span 1;
-        width: 3.5rem;
-        height: 3.2rem;
+        width: 56px;
+        height: 52px;
         background-image: url(/img/meme\ editor.png);
         background-position: -1078px -365px;
         border-radius: 10px;
