@@ -59,6 +59,11 @@ function onMoveText(value) {
     moveText(value)
 }
 
+function toggleMenu() {
+    document.body.classList.toggle('menu-open');
+    document.querySelector('.btn-menu').classList.toggle('close')
+}
+
 function onFontSelect(elFont) {
 
 }
