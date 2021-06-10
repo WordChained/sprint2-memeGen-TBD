@@ -249,6 +249,7 @@ button {
         background-position: -935px -573px;
         border-radius: 20px;
         box-shadow: 1px 1px 3px #c4cccb;
+        cursor: pointer;
     }
 }
 
@@ -440,5 +441,6 @@ button {
         border-radius: 3em;
         background-image: url("../img/meme-editor.png");
         background-position: -956px -573px;
+        cursor: pointer
     }
 }

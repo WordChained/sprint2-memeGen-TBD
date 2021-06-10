@@ -32,6 +32,7 @@ function onTextInput(text) {
 //when we hit enter
 function onSubmitText(ev, input) {
     submitText(ev, input)
+    console.log(gCanvas)
 }
 
 function onSizeChange(elSize) {

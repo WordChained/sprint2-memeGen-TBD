@@ -250,3 +250,13 @@ function editText(text) {
 //     }
 //     return txt;
 // }
+
+function downloadCanvas(elLink) {
+    const data = gCanvas.toDataURL()
+        // console.log('DATA', data);
+    elLink.href = data
+        // var timeStamp = new Date().toLocaleTimeString()
+        // console.log(timeStamp)
+        // elLink.download = timeStamp + 'user-drawing'
+    elLink.download = Date.now() + '-user-drawing'
+}
