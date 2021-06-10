@@ -1,7 +1,10 @@
 'use strict';
-
 var gCurrText = {};
-
+// id: gMeme.selectedLineIdx,
+// txt: text,
+// x: x,
+// y: y
+var gIsEditing = false;
 var gAlignment = 'center'
 var gSize = 40;
 
@@ -82,9 +85,14 @@ function drawImg(meme) {
 function submitText(ev, input) {
     if (ev.keyCode === 13) {
         ev.preventDefault();
-        drawText(input.value);
-        gMeme.selectedLineIdx++;
-        console.log(gMeme.selectedLineIdx);
+        if (!gIsEditing) {
+            drawText(input.value);
+            gMeme.selectedLineIdx++;
+            console.log(gMeme.selectedLineIdx);
+        } else {
+            editText(input.value)
+            gIsEditing = false;
+        }
         input.value = '';
     }
 }
@@ -152,6 +160,12 @@ function getImg(elImg) {
 function showEditor() {
     var elEditor = document.querySelector('.editor-container');
     var elGallery = document.querySelector('.gallery-container');
+    var elImgs = document.querySelectorAll('.meme')
+        // for (var i = 0; i < elImgs.length; i++) {
+        //     console.log(elImgs[i])
+        //     var img = elImgs[i]
+        //     img.style.display = 'none'
+        // }
     elGallery.style.display = 'none';
     elEditor.style.display = 'grid'
 }
@@ -172,6 +186,27 @@ function changeSize(elSize) {
 }
 //move is +1
 function switchLine(move) {
+    gIsEditing = true;
+    if (!gMeme.lines.length) return
+    renderCanvas()
+        //catch the pos of the relavent line and draw a rectangle
+        // also, render whole canvas and add rectangle. dont save previous rectangles.
+    var currLine = gMeme.lines.find(line => {
+        return line.id === gMeme.selectedLineIdx - 1;
+    })
+    setTimeout(() => {
+        gCtx.strokeRect(currLine.pos.x - 175, currLine.pos.y - 50, 350, 70);
+    }, 1)
+    gMeme.selectedLineIdx -= move;
+    if (gMeme.selectedLineIdx - 1 < 0) gMeme.selectedLineIdx = gMeme.lines.length
+        //for the editing function:
+    gCurrText = currLine
+        //---
+    var input = document.querySelector('.meme-text')
+    input.value = currLine.txt
+
+    //TODO: when i render again delete current line and rewrite it with new text
+
 
 }
 
@@ -193,6 +228,18 @@ function moveText(value) {
         gCurrText.y = +gCurrText.y + +value;
     }, 1)
 }
+
+function editText(text) {
+    // var editedText = gMeme.lines.find(line => line.txt === text)
+    console.log(text)
+    console.log(gCurrText.txt);
+    console.log(gCurrText.id);
+    gMeme.lines[gCurrText.id].txt = text
+
+    gMeme.selectedLineIdx++;
+    renderCanvas()
+}
+
 
 // function _makeId(length = 4) {
 //     var txt = '';

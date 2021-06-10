@@ -12,9 +12,26 @@
 
 <body onload="onInit()">
     <!-- gallery -->
-    <div class="gallery-container">
-        <h1></h1>
-        <div class="gallery grid-container">
+
+    <div class="grid-container">
+        <header class="header">
+            <h1 class="logo">MEME GENERATOR</h1>
+            <nav class="nav-bar">
+                <article class="gallery">Gallery</article>
+                <article class="memes">Memes</article>
+                <article class="about">About</article>
+            </nav>
+        </header>
+        <div class="gallery-container">
+            <div class="search-grid">
+
+                <input type="text" class="search" placeholder="Search for a meme..." oninput="onSort(this.value)">
+                <!-- <div class="search-terms">
+                    <button></button>
+                    <button></button>
+                    <button></button>
+                </div> -->
+            </div>
             <img id="1" class="meme" src="img/meme-imgs (square)/1.jpg" alt="">
             <img id="0" class="meme" src="img/meme-imgs (square)/0.jpg" alt="">
             <img id="2" class="meme" src="img/meme-imgs (square)/2.jpg" alt="">
@@ -35,22 +52,44 @@
             <img id="17" class="meme" src="img/meme-imgs (square)/17.jpg" alt="">
             <img id="18" class="meme" src="img/meme-imgs (square)/18.jpg" alt="">
         </div>
-    </div>
-    <div class="editor-container">
-        <div class="canvas-container">
-            <canvas class="canvas" onclick="OnTextPick(event)"></canvas>
-        </div>
-        <div class="interface">
 
-            <input class="meme-text" type="text" oninput="onTextInput(this.value)" onkeydown="onSubmitText(event,this)">
-            <button value="1" class="plus" onclick="onSizeChange(this.value)">➕</button>
-            <button value="-1" class="minus" onclick="onSizeChange(this.value)">➖</button>
-            <button class="clear" onclick="onClearCanvas()">CLEAR</button>
-            <button value="1" class="move" onclick="onSwitchLine(this.value)">🔁</button>
-            <button value="-10" class="up" onclick="onMoveText(this.value)">⬆</button>
-            <button value="10" class="down" onclick="onMoveText(this.value)">⬇</button>
-        </div>
+        <div class="editor-container">
+            <div class="canvas-container">
+                <canvas class="canvas" onclick="OnTextPick(event)"></canvas>
+            </div>
+            <div class="interface">
+                <div class="inner-grid">
+                    <button value="1" class="plus" onclick="onSizeChange(this.value)"></button>
+                    <button value="-1" class="minus" onclick="onSizeChange(this.value)"></button>
+                    <button value="-10" class="up" onclick="onMoveText(this.value)">⬆</button>
+                    <button value="10" class="down" onclick="onMoveText(this.value)">⬇</button>
+                    <select class="font-family" onselect="onFontSelect()">
+                        <option value="impact">Impact</option>
+                         <option value="arial">Arial</option>
+                        <option value="david">David</option>
+                    </select>
+                    <input type="color" class="color" onclick="onColorChange(this.value)"></input>
+                    <button value="left" class="align-left" onclick="onAlign(this.value)"></button>
+                    <button value="center" class="align-center" onclick="onAlign(this.value)"></button>
+                    <button value="right" class="align-right" onclick="onAlign(this.value)"></button>
+                </div>
+                <input class="meme-text" type="text" oninput="onTextInput(this.value)" onkeydown="onSubmitText(event,this)">
 
+                <button class="clear" onclick="onClearCanvas()">❌</button>
+                <button class="delete-row" onclick="onDelete()"></button>
+                <button value="1" class="move" onclick="onSwitchLine(this.value)"></button>
+
+
+
+                <div class="stickers" onclick="onStickerPick()"></div>
+                <div class="grid-footer">
+
+                    <button class="share" onclick="onShare()"></button>
+                    <button class="download" onclick="onDownload()"></button>
+                </div>
+            </div>
+            <footer></footer>
+        </div>
     </div>
 </body>
 <script src="js/upload-service.js"></script>

@@ -17,31 +17,71 @@ button {
 /* play with grid specs later */
 
 .editor-container {
-    display: grid;
-    grid-template-columns: repeat(2, 400px);
-    grid-template-rows: 400px;
-    transform: translate(5%, 50%);
-    gap: 5px;
-    /* display: none; */
+    /* grid is given with js */
+    display: none;
+    grid-template-columns: repeat(2, 500px);
+    grid-template-rows: 500px;
+    grid-row: 2;
+    grid-column: 6;
+    gap: 150px;
+    align-content: center;
+    margin-top: 70px;
+    padding-top: 60px;
+    position: relative;
+}
+
+
+/* .editor-container::before {
+    content: "";
+    position: absolute;
+    background: url(/img/sunbeams.svg);
+    opacity: 0.5;
+    border: none;
+    border-radius: 20px;
+    height: 600px;
+    width: 600px;
+    background-repeat: no-repeat;
+    z-index: -1;
+    box-shadow: 0 0 20px 20px #22252C inset;
+} */
+
+.editor-container::before {
+    content: "";
+    position: absolute;
+    background: url(/img/sunbeams.png);
+    opacity: 0.3;
+    border: none;
+    border-radius: 40%;
+    height: 640px;
+    width: 640px;
+    background-repeat: no-repeat;
+    z-index: -1;
+    box-shadow: 0 0 30px 20px #22252C inset;
 }
 
 .canvas-container {
     display: grid;
-    background-color: rgb(189, 184, 176);
-    display: grid;
+    /* background-color: rgb(189, 184, 176); */
+    /* width: 500px;
+    height: 500px; */
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(7, 1fr);
     grid-column: span 1;
+    border-radius: 20px;
+    padding-left: 50px;
 }
 
 .canvas {
     cursor: pointer;
     grid-column: 1/7;
     grid-row: 1/7;
+    border-radius: 20px;
+    border: 5px #34373E solid
 }
 
 .interface {
-    background-color: wheat;
+    background-color: #383B42;
+    /* opacity: 0.5; */
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     grid-template-rows: repeat(7, 1fr);
@@ -49,38 +89,216 @@ button {
     grid-column: span 1;
     gap: 10px;
     padding: 10px;
+    border-radius: 20px;
 }
 
 .meme-text {
     font-size: x-large;
     grid-row: span 1;
     grid-column: span 7;
+    opacity: 0.6;
+    border-radius: 3em;
+    text-align: center;
+    outline: none;
+}
+
+
+/* buttons */
+
+.inner-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat (2, 1fr);
+    grid-row: 3 /5;
+    grid-column: 1/-1;
+    background-color: #19A59F;
+    border-radius: 10px;
+    padding: 5px;
+    gap: 5px;
 }
 
 .plus {
-    grid-row: 2 / 3;
+    width: 56px;
+    height: 52px;
+    grid-row: 3 / 4;
     grid-column: 1 /2;
+    background-image: url(/img/meme\ editor.png);
+    background-position: -723px -298px;
+    border-radius: 10px;
+    box-shadow: 1px 1px 3px #c4cccb;
 }
 
-.plus {
-    grid-row: 2 / 3;
+.minus {
+    width: 56px;
+    height: 52px;
+    grid-row: 3 / 4;
     grid-column: 2/3;
-}
-
-.clear {
-    grid-row: 2 / 3;
-    grid-column: 3/4;
+    background-image: url(/img/meme\ editor.png);
+    border-radius: 10px;
+    background-position: -812px -298px;
+    box-shadow: 1px 1px 3px #c4cccb;
 }
 
 .move {
+    width: 56px;
+    height: 52px;
     font-size: 1.5rem;
     background: none;
     border: none;
     outline: none;
-    grid-row: span 1;
+    grid-row: 2 /3;
+    grid-column: 3/4;
+    background-image: url(/img/meme\ editor.png);
+    background-position: -822px -205px;
+    border-radius: 10px;
+    box-shadow: 1px 1px 3px #c4cccb;
 }
+
+.clear {
+    width: 56px;
+    height: 52px;
+    grid-row: 2 / 3;
+    grid-column: 4/5;
+    font-size: larger;
+    background-color: rgb(231, 69, 96);
+    border-radius: 10px;
+    box-shadow: 1px 1px 3px #c4cccb;
+}
+
+.delete-row {
+    width: 56px;
+    height: 52px;
+    grid-row: 2 / 3;
+    grid-column: 5/6;
+    background-image: url(/img/meme\ editor.png);
+    background-position: -980px -205px;
+    border-radius: 10px;
+    box-shadow: 1px 1px 3px #c4cccb;
+}
+
+.font-family {
+    /* width: 56px; */
+    height: 52px;
+    /* background-image: url(/img/meme\ editor.png); */
+    border-radius: 10px;
+    box-shadow: 1px 1px 3px #c4cccb;
+    grid-row: 4 / 5;
+    grid-column: 1/4;
+}
+
+.color {
+    width: 56px;
+    height: 52px;
+    background-image: url(/img/meme\ editor.png);
+    background-position: -1078px -365px;
+    border-radius: 10px;
+    box-shadow: 1px 1px 3px #c4cccb;
+    grid-row: 4 / 5;
+    grid-column: 4/5;
+    cursor: pointer;
+    -webkit-appearance: none;
+}
+
+
+/* handle color-input appearance */
+
+.color::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+
+.color::-webkit-color-swatch {
+    border: none;
+    background-image: url(/img/meme\ editor.png);
+    background-position: -1078px -365px;
+    border-radius: 10px;
+    /* put border color set to color picked in js */
+}
+
+
+/* ------------------------------------------ */
 
 .up,
 .down {
+    width: 56px;
+    height: 52px;
+    border-radius: 10px;
+    box-shadow: 1px 1px 3px #c4cccb;
+    grid-row: 4 / 5;
     font-size: 1.5rem;
+}
+
+.up {
+    grid-column: 5/6;
+}
+
+.down {
+    grid-column: 6/7;
+}
+
+.align-left,
+.align-center,
+.align-right {
+    width: 56px;
+    height: 52px;
+    grid-row: 3 / 4;
+    grid-column: span 1;
+    background-image: url(/img/meme\ editor.png);
+    border-radius: 10px;
+    box-shadow: 1px 1px 3px #c4cccb;
+}
+
+.align-left {
+    background-position: -900px -298px;
+    grid-column: 4/5
+}
+
+.align-center {
+    background-position: -990px -298px;
+    grid-column: 5/6
+}
+
+.align-right {
+    background-position: -1080px -298px;
+    grid-column: 6/7
+}
+
+.stickers {
+    grid-row: 5/7;
+    grid-column: 1/-1;
+    background-color: white;
+    border-radius: 3em;
+    align-content: center;
+    align-items: center;
+}
+
+.grid-footer {
+    display: grid;
+    grid-template-columns: 10px 1fr 30px 1fr 10px;
+    grid-template-rows: 1fr;
+    grid-row: 7/8;
+    grid-column: 1/-1;
+}
+
+.share {
+    grid-row: span 1;
+    grid-column: 2/3;
+    width: 13.15rem;
+    height: 52px;
+    background-image: url(/img/meme\ editor.png);
+    background-position: -704px -573px;
+    border-radius: 20px;
+    box-shadow: 1px 1px 3px #c4cccb;
+    border: none
+}
+
+.download {
+    border: none;
+    grid-row: span 1;
+    grid-column: 4/5;
+    width: 13.15rem;
+    height: 52px;
+    background-image: url(/img/meme\ editor.png);
+    background-position: -935px -573px;
+    border-radius: 20px;
+    box-shadow: 1px 1px 3px #c4cccb;
 }

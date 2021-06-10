@@ -15,6 +15,7 @@ function onInit() {
         loadImgToCanvas();
     })
     loadImgToCanvas();
+    resizeCanvas()
 }
 
 function OnTextPick(ev) {
@@ -27,9 +28,8 @@ function OnTextPick(ev) {
 function onTextInput(text) {
     setUserText(text)
 }
-//needs to move to service!!
-//when we hit enter
 
+//when we hit enter
 function onSubmitText(ev, input) {
     submitText(ev, input)
 }
@@ -40,9 +40,9 @@ function onSizeChange(elSize) {
 
 function onImgClick(elImg) {
     getImg(elImg)
-    resizeCanvas()
     renderCanvas();
     showEditor();
+    resizeCanvas()
 }
 
 function onClearCanvas() {
@@ -51,10 +51,38 @@ function onClearCanvas() {
     gMeme.selectedLineIdx = 0;
 }
 
-function onSwitchLine(elPosition) {
-    switchLine(elPosition)
+function onSwitchLine(elMove) {
+    switchLine(elMove)
 }
 
 function onMoveText(value) {
     moveText(value)
+}
+
+function onFontSelect(elFont) {
+
+}
+
+function onColorChange(elColor) {
+
+}
+
+function onAlign(elDirection) {
+
+}
+
+function onDelete() {
+
+}
+
+function onStickerPick() {
+
+}
+
+function onShare() {
+
+}
+
+function onDownload() {
+
 }
