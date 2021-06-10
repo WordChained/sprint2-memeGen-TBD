@@ -160,14 +160,15 @@ function getImg(elImg) {
 function showEditor() {
     var elEditor = document.querySelector('.editor-container');
     var elGallery = document.querySelector('.gallery-container');
-    var elImgs = document.querySelectorAll('.meme')
-        // for (var i = 0; i < elImgs.length; i++) {
-        //     console.log(elImgs[i])
-        //     var img = elImgs[i]
-        //     img.style.display = 'none'
-        // }
     elGallery.style.display = 'none';
     elEditor.style.display = 'grid'
+}
+
+function showGallery() {
+    var elEditor = document.querySelector('.editor-container');
+    var elGallery = document.querySelector('.gallery-container');
+    elGallery.style.display = 'grid';
+    elEditor.style.display = 'none'
 }
 
 function clearCanvas() {

@@ -31,7 +31,7 @@ button {
     .editor-container::before {
         content: "";
         position: absolute;
-        background: url(/img/sunbeams.png);
+        background: url("../img/sunbeams.png");
         opacity: 0.3;
         border: none;
         border-radius: 40%;
@@ -93,7 +93,7 @@ button {
         height: 3.7em;
         grid-row: 3 / 4;
         grid-column: 1 /2;
-        background-image: url("./img/meme-editor.png");
+        background-image: url("../img/meme-editor.png");
         background-position: -723px -298px;
         border-radius: 10px;
         box-shadow: 1px 1px 3px #c4cccb;
@@ -103,7 +103,7 @@ button {
         height: 3.7em;
         grid-row: 3 / 4;
         grid-column: 2/3;
-        background-image: url("./img/meme-editor.png");
+        background-image: url("../img/meme-editor.png");
         border-radius: 10px;
         background-position: -812px -298px;
         box-shadow: 1px 1px 3px #c4cccb;
@@ -117,7 +117,7 @@ button {
         outline: none;
         grid-row: 2 /3;
         grid-column: 3/4;
-        background-image: url("./img/meme-editor.png");
+        background-image: url("../img/meme-editor.png");
         background-position: -822px -205px;
         border-radius: 10px;
         box-shadow: 1px 1px 3px #c4cccb;
@@ -137,7 +137,7 @@ button {
         height: 4em;
         grid-row: 2 / 3;
         grid-column: 5/6;
-        background-image: url("./img/meme-editor.png");
+        background-image: url("../img/meme-editor.png");
         background-position: -980px -205px;
         border-radius: 10px;
         box-shadow: 1px 1px 3px #c4cccb;
@@ -145,7 +145,7 @@ button {
     .font-family {
         /* width: 56px; */
         height: 3.25em;
-        /* background-image: url("./img/meme-editor.png"); */
+        /* background-image: url("../img/meme-editor.png"); */
         border-radius: 10px;
         box-shadow: 1px 1px 3px #c4cccb;
         grid-row: 4 / 5;
@@ -154,7 +154,7 @@ button {
     .color {
         width: 4.2em;
         height: 3.8em;
-        background-image: url("./img/meme-editor.png");
+        background-image: url("../img/meme-editor.png");
         background-position: -1078px -365px;
         border-radius: 10px;
         box-shadow: 1px 1px 3px #c4cccb;
@@ -169,7 +169,7 @@ button {
     }
     .color::-webkit-color-swatch {
         border: none;
-        background-image: url("./img/meme-editor.png");
+        background-image: url("../img/meme-editor.png");
         background-position: -1078px -365px;
         border-radius: 10px;
         /* put border color set to color picked in js */
@@ -197,7 +197,7 @@ button {
         height: 52px;
         grid-row: 3 / 4;
         grid-column: span 1;
-        background-image: url("./img/meme-editor.png");
+        background-image: url("../img/meme-editor.png");
         border-radius: 10px;
         box-shadow: 1px 1px 3px #c4cccb;
     }
@@ -233,7 +233,7 @@ button {
         grid-column: 2/3;
         width: 13.15rem;
         height: 52px;
-        background-image: url("./img/meme-editor.png");
+        background-image: url("../img/meme-editor.png");
         background-position: -704px -573px;
         border-radius: 20px;
         box-shadow: 1px 1px 3px #c4cccb;
@@ -245,7 +245,7 @@ button {
         grid-column: 4/5;
         width: 13.15rem;
         height: 52px;
-        background-image: url("./img/meme-editor.png");
+        background-image: url("../img/meme-editor.png");
         background-position: -935px -573px;
         border-radius: 20px;
         box-shadow: 1px 1px 3px #c4cccb;
@@ -309,7 +309,7 @@ button {
         grid-column: span 1;
         width: 56px;
         height: 52px;
-        background-image: url("./img/meme-editor.png");
+        background-image: url("../img/meme-editor.png");
         background-position: -723px -298px;
         border-radius: 10px;
         box-shadow: 1px 1px 3px #c4cccb;
@@ -318,7 +318,7 @@ button {
         grid-column: span 1;
         width: 56px;
         height: 52px;
-        background-image: url("./img/meme-editor.png");
+        background-image: url("../img/meme-editor.png");
         border-radius: 10px;
         background-position: -812px -298px;
         box-shadow: 1px 1px 3px #c4cccb;
@@ -327,7 +327,7 @@ button {
         grid-area: move;
         width: 56px;
         height: 52px;
-        background-image: url("./img/meme-editor.png");
+        background-image: url("../img/meme-editor.png");
         background-position: -822px -205px;
         border-radius: 10px;
         box-shadow: 1px 1px 3px #c4cccb;
@@ -344,7 +344,7 @@ button {
         grid-area: delete;
         width: 56px;
         height: 52px;
-        background-image: url("./img/meme-editor.png");
+        background-image: url("../img/meme-editor.png");
         background-position: -980px -205px;
         border-radius: 10px;
         box-shadow: 1px 1px 3px #c4cccb;
@@ -359,7 +359,7 @@ button {
         grid-column: span 1;
         width: 56px;
         height: 52px;
-        background-image: url("./img/meme-editor.png");
+        background-image: url("../img/meme-editor.png");
         background-position: -1078px -365px;
         border-radius: 10px;
         box-shadow: 1px 1px 3px #c4cccb;
@@ -371,7 +371,7 @@ button {
     }
     .color::-webkit-color-swatch {
         border: none;
-        background-image: url("./img/meme-editor.png");
+        background-image: url("../img/meme-editor.png");
         background-position: -1078px -365px;
         border-radius: 10px;
         /* put border color set to color picked in js */
@@ -394,7 +394,7 @@ button {
     .align-right {
         width: 56px;
         height: 52px;
-        background-image: url("./img/meme-editor.png");
+        background-image: url("../img/meme-editor.png");
         border-radius: 10px;
         box-shadow: 1px 1px 3px #c4cccb;
     }
@@ -426,7 +426,7 @@ button {
         grid-column: 1/2;
         width: 10.15rem;
         height: 52px;
-        background-image: url("./img/meme-editor.png");
+        background-image: url("../img/meme-editor.png");
         background-position: -730px -573px;
         border-radius: 20px;
         box-shadow: 1px 1px 3px #c4cccb;
@@ -438,7 +438,7 @@ button {
         height: 52px;
         border: none;
         border-radius: 3em;
-        background-image: url("./img/meme-editor.png");
+        background-image: url("../img/meme-editor.png");
         background-position: -956px -573px;
     }
 }

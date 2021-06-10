@@ -64,6 +64,10 @@ function toggleMenu() {
     document.querySelector('.btn-menu').classList.toggle('close')
 }
 
+function onGalleryClick() {
+    showGallery()
+}
+
 function onFontSelect(elFont) {
 
 }
