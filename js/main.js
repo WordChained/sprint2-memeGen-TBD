@@ -32,7 +32,6 @@ function onTextInput(text) {
 //when we hit enter
 function onSubmitText(ev, input) {
     submitText(ev, input)
-    console.log(gCanvas)
 }
 
 function onSizeChange(elSize) {
@@ -47,6 +46,7 @@ function onImgClick(elImg) {
 }
 
 function onClearCanvas() {
+    if (!confirm('are you sure you want to delete everything?')) return
     clearCanvas()
     loadImgToCanvas()
     gMeme.selectedLineIdx = 0;
@@ -66,11 +66,17 @@ function toggleMenu() {
 }
 
 function onGalleryClick() {
+    //reseting the lines
+    gMeme.lines = []
+        // clearing the canvas
+    clearCanvas()
+        // showing gallery
     showGallery()
 }
 
 function onFontSelect(elFont) {
-
+    console.log('elFont', elFont)
+    setFont(elFont)
 }
 
 function onColorChange(elColor) {
@@ -93,6 +99,12 @@ function onShare() {
 
 }
 
-function onDownload() {
+function onDownloadCanvas(elFile) {
+    saveToStorage('memeList', getMemeList())
+    downloadCanvas(elFile)
+}
 
+function onMemeTabClick() {
+    loadMemes()
+    moveToMemePage()
 }

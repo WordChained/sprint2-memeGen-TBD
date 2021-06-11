@@ -256,20 +256,25 @@ button {
 @media (max-width:740px) {
     .editor-container {
         display: none;
+        z-index: 1;
+    }
+    body.menu-open .editor-container {
         z-index: -1;
     }
     .editor-container::before {
         content: "";
         position: absolute;
-        background: url(img/sunbeams.png);
+        background: url('../img/sunbeams.png');
         opacity: 0.3;
         border: none;
-        border-radius: 40%;
-        height: 440px;
-        width: 440px;
+        border-radius: 20%;
+        height: 450px;
+        width: 490px;
         background-repeat: no-repeat;
         z-index: -1;
         box-shadow: 0 0 10px 20px #22252C inset;
+        margin-left: 2%;
+        margin-top: 20px
     }
     .canvas-container {
         display: flex;
@@ -285,7 +290,7 @@ button {
     }
     .interface {
         display: grid;
-        border: black solid 2px;
+        border: rgba(51, 51, 51, 0.541) solid 3px;
         border-radius: 10px;
         grid-template-areas: "text text text text text" ". move clear delete ." "inner inner inner inner inner" "inner inner inner inner inner" "inner inner inner inner inner" "footer footer footer footer footer";
         grid-template-rows: repeat(6, 1fr);
@@ -296,9 +301,13 @@ button {
         width: 350px;
         height: 350px;
         gap: 4px;
+        padding: 5px
     }
     .meme-text {
         grid-area: text;
+        font-size: larger;
+        text-align: center;
+        border-radius: 3em;
     }
     /* buttons */
     .inner-grid {

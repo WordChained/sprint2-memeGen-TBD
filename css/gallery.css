@@ -291,6 +291,7 @@
         }
         body.menu-open .nav-bar {
             transform: translateX(0);
+            z-index: 1;
         }
         body.menu-open .nav-bar article {
             margin-top: 100px;

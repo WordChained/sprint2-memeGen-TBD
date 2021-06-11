@@ -7,6 +7,8 @@ var gCurrText = {};
 var gIsEditing = false;
 var gAlignment = 'center'
 var gSize = 40;
+var gFont = 'Impact'
+var gMemeList = []
 
 var gKeywords = {
     'happy': 12,
@@ -31,6 +33,7 @@ var gMeme = {
 }
 
 function renderCanvas() {
+    console.log('gFont is:', gFont);
     loadImgToCanvas()
     setTimeout(() => {
         gMeme.lines.map(meme => {
@@ -38,7 +41,7 @@ function renderCanvas() {
             gCtx.lineWidth = 2
             gCtx.strokeStyle = 'black'
             gCtx.fillStyle = 'white'
-            gCtx.font = gSize + 'px Impact'
+            gCtx.font = gSize + `px ${gFont}`
             gCtx.textAlign = gAlignment
             gCtx.fillText(meme.txt, meme.pos.x, meme.pos.y)
             gCtx.strokeText(meme.txt, meme.pos.x, meme.pos.y)
@@ -47,8 +50,8 @@ function renderCanvas() {
 }
 
 function createImages(size) {
-    //2 cause we started with one image already set
-    //TODO: figure out when to push keywords to memes
+    //1 cause we started with one image already set
+    //TODO: change this to manual so we can enter keywords
     for (var i = 1; i < size + 1; i++) {
         gImgs.push({
             id: i,
@@ -63,6 +66,7 @@ function resizeCanvas() {
     // Note: changing the canvas dimension this way clears the canvas
     gCanvas.width = elContainer.offsetWidth
     gCanvas.height = elContainer.offsetHeight
+    renderCanvas()
 }
 
 function loadImgToCanvas() {
@@ -120,7 +124,7 @@ function drawText(text) {
     gCtx.lineWidth = 2
     gCtx.strokeStyle = 'black'
     gCtx.fillStyle = 'white'
-    gCtx.font = gSize + 'px Impact'
+    gCtx.font = gSize + `px ${gFont}`
     gCtx.textAlign = gAlignment
     gCtx.fillText(text, x, y)
     gCtx.strokeText(text, x, y)
@@ -168,7 +172,7 @@ function showGallery() {
     var elEditor = document.querySelector('.editor-container');
     var elGallery = document.querySelector('.gallery-container');
     elGallery.style.display = 'grid';
-    elEditor.style.display = 'none'
+    elEditor.style.display = 'none';
 }
 
 function clearCanvas() {
@@ -187,28 +191,31 @@ function changeSize(elSize) {
 }
 //move is +1
 function switchLine(move) {
-    gIsEditing = true;
     if (!gMeme.lines.length) return
+    gIsEditing = true;
     renderCanvas()
         //catch the pos of the relavent line and draw a rectangle
         // also, render whole canvas and add rectangle. dont save previous rectangles.
     var currLine = gMeme.lines.find(line => {
         return line.id === gMeme.selectedLineIdx - 1;
     })
+    if (!currLine) currLine = gMeme.lines[gMeme.lines.length - 1];
     setTimeout(() => {
+        var width = gCtx.measureText(currLine).width;
+        console.log(width);
+        console.log(gCanvas.width);
         gCtx.strokeRect(currLine.pos.x - 175, currLine.pos.y - 50, 350, 70);
-    }, 1)
+    }, 1);
     gMeme.selectedLineIdx -= move;
-    if (gMeme.selectedLineIdx - 1 < 0) gMeme.selectedLineIdx = gMeme.lines.length
-        //for the editing function:
-    gCurrText = currLine
-        //---
-    var input = document.querySelector('.meme-text')
-    input.value = currLine.txt
-
-    //TODO: when i render again delete current line and rewrite it with new text
-
-
+    if (gMeme.selectedLineIdx - 1 < 0) gMeme.selectedLineIdx = gMeme.lines.length;
+    //for the editing function:
+    gCurrText = currLine;
+    //---
+    var input = document.querySelector('.meme-text');
+    input.value = currLine.txt;
+    console.log(gMeme.lines)
+        // when i render again delete current line and rewrite it with new text (done on the draw text function)
+    renderCanvas()
 }
 
 function moveText(value) {
@@ -221,7 +228,7 @@ function moveText(value) {
         gCtx.lineWidth = 2
         gCtx.strokeStyle = 'black'
         gCtx.fillStyle = 'white'
-        gCtx.font = gSize + 'px Impact'
+        gCtx.font = gSize + `px ${gFont}`
         gCtx.textAlign = gAlignment
         gCtx.fillText(gCurrText.txt, gCurrText.x, +gCurrText.y + +value)
         gCtx.strokeText(gCurrText.txt, gCurrText.x, +gCurrText.y + +value)
@@ -238,6 +245,7 @@ function editText(text) {
     gMeme.lines[gCurrText.id].txt = text
 
     gMeme.selectedLineIdx++;
+    console.log(gMeme.lines)
     renderCanvas()
 }
 
@@ -258,5 +266,25 @@ function downloadCanvas(elLink) {
         // var timeStamp = new Date().toLocaleTimeString()
         // console.log(timeStamp)
         // elLink.download = timeStamp + 'user-drawing'
-    elLink.download = Date.now() + '-user-drawing'
+    elLink.download = Date.now() + '-meme'
+}
+
+function setFont(elFont) {
+    gFont = elFont;
+    renderCanvas()
+    resizeCanvas()
+}
+
+function getMemeList() {
+    console.log(gCanvas.toDataURL());
+    gMemeList.push(gCanvas.toDataURL())
+    return gMemeList
+}
+
+function loadMemes() {
+    loadFromStorage('memeList')
+}
+
+function moveToMemePage() {
+
 }
