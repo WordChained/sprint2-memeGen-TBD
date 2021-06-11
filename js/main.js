@@ -105,6 +105,16 @@ function onDownloadCanvas(elFile) {
 }
 
 function onMemeTabClick() {
-    loadMemes()
+    var memes = loadMemes()
     moveToMemePage()
+    renderMemes(memes)
+}
+
+function addListeners() {
+    addMouseListeners()
+    addTouchListeners()
+    window.addEventListener('resize', () => {
+        resizeCanvas()
+        renderCanvas()
+    })
 }

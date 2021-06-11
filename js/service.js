@@ -33,7 +33,6 @@ var gMeme = {
 }
 
 function renderCanvas() {
-    console.log('gFont is:', gFont);
     loadImgToCanvas()
     setTimeout(() => {
         gMeme.lines.map(meme => {
@@ -161,19 +160,37 @@ function getImg(elImg) {
     gMeme.selectedImgId = memeId.id;
 }
 
+//navigation:--------------------------------------------------------
 function showEditor() {
     var elEditor = document.querySelector('.editor-container');
     var elGallery = document.querySelector('.gallery-container');
+    var elMemeTab = document.querySelector('.memes-container');
     elGallery.style.display = 'none';
     elEditor.style.display = 'grid'
+    elMemeTab.style.display = 'none';
+
 }
 
 function showGallery() {
     var elEditor = document.querySelector('.editor-container');
     var elGallery = document.querySelector('.gallery-container');
+    var elMemeTab = document.querySelector('.memes-container');
     elGallery.style.display = 'grid';
     elEditor.style.display = 'none';
+    elMemeTab.style.display = 'none';
 }
+
+function moveToMemePage() {
+    var elGallery = document.querySelector('.gallery-container');
+    var elMemeTab = document.querySelector('.memes-container');
+    var elEditor = document.querySelector('.editor-container');
+    elGallery.style.display = 'none';
+    elMemeTab.style.display = 'grid';
+    elEditor.style.display = 'none';
+}
+
+//---------------------------------------------------------------------
+
 
 function clearCanvas() {
     gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height);
@@ -282,9 +299,37 @@ function getMemeList() {
 }
 
 function loadMemes() {
-    loadFromStorage('memeList')
+    var memes = []
+    var memeList = loadFromStorage('memeList')
+    if (!memeList) return;
+    memeList.map(meme => {
+        var img = new Image;
+        img.src = meme;
+        memes.push(img)
+    })
+    return memes
 }
 
-function moveToMemePage() {
+function renderMemes(memes) {
+    if (!memes) return
+    var elMemeContainer = document.querySelector('.memes-container')
+    elMemeContainer.innerHTML = ''
+    memes.map((meme, idx) => {
 
+        var str = `<img class="saved-meme" src="${meme.src}" id="${idx}">`
+        elMemeContainer.innerHTML += str;
+    })
+}
+
+
+function addMouseListeners() {
+    gElCanvas.addEventListener('mousemove', onMove)
+    gElCanvas.addEventListener('mousedown', onDown)
+    gElCanvas.addEventListener('mouseup', onUp)
+}
+
+function addTouchListeners() {
+    gElCanvas.addEventListener('touchmove', onMove)
+    gElCanvas.addEventListener('touchstart', onDown)
+    gElCanvas.addEventListener('touchend', onUp)
 }

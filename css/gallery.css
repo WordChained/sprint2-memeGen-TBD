@@ -97,6 +97,7 @@
         background-clip: padding-box;
     }
     /* ----------------------------------------------------------- */
+    /* header for all pages */
     
     .header {
         display: grid;
@@ -118,6 +119,7 @@
         font-family: popins-medium, sans-serif;
         font-size: 1.06rem;
     }
+    /* ---------------------------------------- */
     
     .search-grid {
         display: grid;
