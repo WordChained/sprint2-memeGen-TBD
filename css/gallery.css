@@ -144,6 +144,7 @@
         padding: 10px;
         font-size: larger;
         margin-top: 15px;
+        outline: none;
     }
     
     .magnifier {

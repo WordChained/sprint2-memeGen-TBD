@@ -1,9 +1,11 @@
 'use strict';
 var gCanvas;
 var gCtx;
+var gStartPos
 
 function onInit() {
-    createImages(18);
+    // createImages(18);
+    renderImgsToGallery(gImgs)
     addAttributeToImgs()
     gCanvas = document.querySelector('.canvas');
     gCtx = gCanvas.getContext('2d');
@@ -14,6 +16,7 @@ function onInit() {
         resizeCanvas()
         loadImgToCanvas();
     })
+    addListeners()
     loadImgToCanvas();
     resizeCanvas()
 }
@@ -21,7 +24,7 @@ function onInit() {
 function OnTextPick(ev) {
     var x = ev.offsetX
     var y = ev.offsetY
-    console.log('x:', x, 'y:', y)
+        // console.log('x:', x, 'y:', y)
 }
 
 // when we type
@@ -57,6 +60,7 @@ function onSwitchLine(elMove) {
 }
 
 function onMoveText(value) {
+    if (gIsEditing) return
     moveText(value)
 }
 
@@ -88,14 +92,10 @@ function onAlign(elDirection) {
 }
 
 function onDelete() {
-
+    deleteLine()
 }
 
 function onStickerPick() {
-
-}
-
-function onShare() {
 
 }
 
@@ -117,4 +117,51 @@ function addListeners() {
         resizeCanvas()
         renderCanvas()
     })
+}
+
+function onDown(ev) {
+    const pos = getEvPos(ev)
+    if (!isTextClicked(pos)) return
+    setTextDrag(true)
+    gStartPos = pos
+    document.querySelector('.canvas').style.cursor = 'grabbing';
+}
+
+function onMove(ev) {
+    const text = gCurrText;
+    if (text.isDrag) {
+        const pos = getEvPos(ev)
+        console.log(pos);
+        const dx = pos.x - gStartPos.x
+        const dy = pos.y - gStartPos.y
+        moveTextWithGrab(dx, dy)
+        gStartPos = pos
+    }
+}
+
+function onUp() {
+    setTextDrag(false)
+    document.querySelector('.canvas').style.cursor = 'grab'
+    renderCanvas()
+}
+
+function getEvPos(ev) {
+    var pos = {
+        x: ev.offsetX,
+        y: ev.offsetY
+    }
+    if (gTouchEvs.includes(ev.type)) {
+        ev.preventDefault()
+        ev = ev.changedTouches[0]
+        pos = {
+            x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
+            y: ev.pageY - ev.target.offsetTop - ev.target.clientTop
+        }
+    }
+    return pos
+}
+
+function onSearch(elKeyword) {
+    console.log(elKeyword)
+    searchKeywords(elKeyword)
 }

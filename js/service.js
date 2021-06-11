@@ -8,7 +8,9 @@ var gIsEditing = false;
 var gAlignment = 'center'
 var gSize = 40;
 var gFont = 'Impact'
-var gMemeList = []
+var gMemeList;
+const gTouchEvs = ['touchstart', 'touchmove', 'touchend']
+
 
 var gKeywords = {
     'happy': 12,
@@ -17,26 +19,133 @@ var gKeywords = {
 var gImgs = [{
         id: 0,
         url: 'img/meme-imgs (square)/0.jpg',
-        keywords: ['happy']
+        keywords: ['funny', 'outdoors']
+    },
+    {
+        id: 1,
+        url: 'img/meme-imgs (square)/1.jpg',
+        keywords: ['funny', 'political', 'usa']
+    },
+    {
+        id: 2,
+        url: 'img/meme-imgs (square)/2.jpg',
+        keywords: ['cute', 'outdoors', 'puppies', 'love', 'animals']
+    },
+    {
+        id: 3,
+        url: 'img/meme-imgs (square)/3.jpg',
+        keywords: ['cute', 'puppies', 'baby', 'sleep', 'animal']
+    },
+    {
+        id: 4,
+        url: 'img/meme-imgs (square)/4.jpg',
+        keywords: ['cute', 'cat', 'computer', 'sleeping']
+    },
+    {
+        id: 5,
+        url: 'img/meme-imgs (square)/5.jpg',
+        keywords: ['inspiring', 'outdoors', 'beach', 'cute']
+    },
+    {
+        id: 6,
+        url: 'img/meme-imgs (square)/6.jpg',
+        keywords: ['funny', 'old', 'stupid', 'funny']
+    },
+    {
+        id: 7,
+        url: 'img/meme-imgs (square)/7.jpg',
+        keywords: ['baby', 'cute', 'funny', 'surprised']
+    },
+    {
+        id: 8,
+        url: 'img/meme-imgs (square)/8.jpg',
+        keywords: ['old', 'movies']
+    },
+    {
+        id: 9,
+        url: 'img/meme-imgs (square)/9.jpg',
+        keywords: ['funny', 'outdoors', 'baby']
+    },
+    {
+        id: 10,
+        url: 'img/meme-imgs (square)/10.jpg',
+        keywords: ['funny', 'political']
+    },
+    {
+        id: 11,
+        url: 'img/meme-imgs (square)/11.jpg',
+        keywords: ['funny', 'sports', 'basketball', 'gay', 'love']
+    },
+    {
+        id: 12,
+        url: 'img/meme-imgs (square)/12.jpg',
+        keywords: ['israeli', 'pointing']
+    },
+    {
+        id: 13,
+        url: 'img/meme-imgs (square)/13.jpg',
+        keywords: ['toast', 'pointing']
+    },
+    {
+        id: 14,
+        url: 'img/meme-imgs (square)/14.jpg',
+        keywords: ['matrix', 'reflection', 'choice']
+    },
+    {
+        id: 15,
+        url: 'img/meme-imgs (square)/15.jpg',
+        keywords: ['old']
+    },
+    {
+        id: 16,
+        url: 'img/meme-imgs (square)/16.jpg',
+        keywords: ['funny', 'awkward']
+    },
+    {
+        id: 17,
+        url: 'img/meme-imgs (square)/17.jpg',
+        keywords: ['political', 'pointing']
+    },
+    {
+        id: 18,
+        url: 'img/meme-imgs (square)/18.jpg',
+        keywords: ['inspiring', 'outdoors']
     },
 
+
 ];
+// function createImages(size) {
+//     //1 cause we started with one image already set
+//     //TODO: change this to manual so we can enter keywords
+//     for (var i = 1; i < size + 1; i++) {
+//         gImgs.push({
+//             id: i,
+//             url: `img/meme-imgs (square)/${i}.jpg`,
+//             keywords: []
+//         })
+//     }
+// }
+
+function renderImgsToGallery(imgs) {
+    var elImgGrid = document.querySelector('.image-grid')
+    elImgGrid.innerHTML = ''
+    imgs.map(img => {
+
+        var strHTMLs = `<img id="${img.id}" class="meme" src="img/meme-imgs (square)/${img.id}.jpg">`
+        elImgGrid.innerHTML += strHTMLs
+    })
+}
 var gMeme = {
     selectedImgId: 5,
     selectedLineIdx: 0,
     lines: []
-        // txt: 'I never eat Falafel',
-        //     size: gSize,
-        //     align: 'left',
-        //     color: 'red',
-        //pos: {x:x,y:y}
 }
 
 function renderCanvas() {
     loadImgToCanvas()
+    gCtx.save()
     setTimeout(() => {
         gMeme.lines.map(meme => {
-
             gCtx.lineWidth = 2
             gCtx.strokeStyle = 'black'
             gCtx.fillStyle = 'white'
@@ -46,19 +155,11 @@ function renderCanvas() {
             gCtx.strokeText(meme.txt, meme.pos.x, meme.pos.y)
         })
     }, 1)
+    renderText()
+    gCtx.restore()
 }
 
-function createImages(size) {
-    //1 cause we started with one image already set
-    //TODO: change this to manual so we can enter keywords
-    for (var i = 1; i < size + 1; i++) {
-        gImgs.push({
-            id: i,
-            url: `img/meme-imgs (square)/${i}.jpg`,
-            keywords: []
-        })
-    }
-}
+
 
 function resizeCanvas() {
     var elContainer = document.querySelector('.canvas-container');
@@ -91,7 +192,6 @@ function submitText(ev, input) {
         if (!gIsEditing) {
             drawText(input.value);
             gMeme.selectedLineIdx++;
-            console.log(gMeme.selectedLineIdx);
         } else {
             editText(input.value)
             gIsEditing = false;
@@ -100,25 +200,23 @@ function submitText(ev, input) {
     }
 }
 
-function drawText(text) {
-    //TODO: set user offsetX
+function drawText(text, x = gCanvas.width / 2, y) {
     //TODO: add randomInt to the default between 50 - 350
-    var x = gCanvas.width / 2;
-    var y;
-
-    switch (gMeme.selectedLineIdx) {
-        case 0:
-            y = gCanvas.height / 4;
-            break;
-        case 1:
-            y = gCanvas.height - 50;
-            break;
-        case 2:
-            y = gCanvas.height / 2;
-            break;
-        default:
-            y = gCanvas.height - 100;
-            break;
+    if (!y) {
+        switch (gMeme.selectedLineIdx) {
+            case 0:
+                y = gCanvas.height / 4;
+                break;
+            case 1:
+                y = gCanvas.height - 50;
+                break;
+            case 2:
+                y = gCanvas.height / 2;
+                break;
+            default:
+                y = gCanvas.height - 100;
+                break;
+        }
     }
     gCtx.lineWidth = 2
     gCtx.strokeStyle = 'black'
@@ -127,8 +225,6 @@ function drawText(text) {
     gCtx.textAlign = gAlignment
     gCtx.fillText(text, x, y)
     gCtx.strokeText(text, x, y)
-        //this needs to be set up by gMeme.pos(x and y), to cover the sentence
-        // gCtx.strokeRect(x - 175, y - 50, 350, 70);
     gMeme.lines.push({
         id: gMeme.selectedLineIdx,
         txt: text,
@@ -141,7 +237,8 @@ function drawText(text) {
         id: gMeme.selectedLineIdx,
         txt: text,
         x: x,
-        y: y
+        y: y,
+        isDrag: false
     }
 }
 
@@ -156,7 +253,6 @@ function addAttributeToImgs() {
 
 function getImg(elImg) {
     var memeId = gImgs.find(img => img.id === +elImg.id)
-    console.log(memeId.id);
     gMeme.selectedImgId = memeId.id;
 }
 
@@ -168,6 +264,7 @@ function showEditor() {
     elGallery.style.display = 'none';
     elEditor.style.display = 'grid'
     elMemeTab.style.display = 'none';
+    gMeme.selectedLineIdx = 0;
 
 }
 
@@ -178,6 +275,7 @@ function showGallery() {
     elGallery.style.display = 'grid';
     elEditor.style.display = 'none';
     elMemeTab.style.display = 'none';
+    gMeme.selectedLineIdx = 0;
 }
 
 function moveToMemePage() {
@@ -187,6 +285,7 @@ function moveToMemePage() {
     elGallery.style.display = 'none';
     elMemeTab.style.display = 'grid';
     elEditor.style.display = 'none';
+    gMeme.selectedLineIdx = 0;
 }
 
 //---------------------------------------------------------------------
@@ -194,6 +293,13 @@ function moveToMemePage() {
 
 function clearCanvas() {
     gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height);
+    gMeme.lines = []
+    gCurrText = {}
+}
+
+function deleteLine() {
+    gMeme.lines.splice(gCurrText.id, 1)
+    renderCanvas()
 }
 
 function changeSize(elSize) {
@@ -218,9 +324,6 @@ function switchLine(move) {
     })
     if (!currLine) currLine = gMeme.lines[gMeme.lines.length - 1];
     setTimeout(() => {
-        var width = gCtx.measureText(currLine).width;
-        console.log(width);
-        console.log(gCanvas.width);
         gCtx.strokeRect(currLine.pos.x - 175, currLine.pos.y - 50, 350, 70);
     }, 1);
     gMeme.selectedLineIdx -= move;
@@ -231,17 +334,16 @@ function switchLine(move) {
     var input = document.querySelector('.meme-text');
     input.value = currLine.txt;
     console.log(gMeme.lines)
-        // when i render again delete current line and rewrite it with new text (done on the draw text function)
+        // when i render again delete current line and rewrite it with new text (done on the drawText function)
     renderCanvas()
 }
 
 function moveText(value) {
-    clearCanvas()
-    loadImgToCanvas()
+    //BUG:this deletes previous lines if we moved a line before
+    console.log(gMeme.lines)
+    deleteLine()
+    renderCanvas()
     setTimeout(() => {
-
-        console.log((+gCurrText.y) + (+value))
-
         gCtx.lineWidth = 2
         gCtx.strokeStyle = 'black'
         gCtx.fillStyle = 'white'
@@ -255,10 +357,6 @@ function moveText(value) {
 }
 
 function editText(text) {
-    // var editedText = gMeme.lines.find(line => line.txt === text)
-    console.log(text)
-    console.log(gCurrText.txt);
-    console.log(gCurrText.id);
     gMeme.lines[gCurrText.id].txt = text
 
     gMeme.selectedLineIdx++;
@@ -267,22 +365,9 @@ function editText(text) {
 }
 
 
-// function _makeId(length = 4) {
-//     var txt = '';
-//     var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-//     for (var i = 0; i < length; i++) {
-//         txt += possible.charAt(Math.floor(Math.random() * possible.length));
-//     }
-//     return txt;
-// }
-
 function downloadCanvas(elLink) {
     const data = gCanvas.toDataURL()
-        // console.log('DATA', data);
     elLink.href = data
-        // var timeStamp = new Date().toLocaleTimeString()
-        // console.log(timeStamp)
-        // elLink.download = timeStamp + 'user-drawing'
     elLink.download = Date.now() + '-meme'
 }
 
@@ -293,8 +378,11 @@ function setFont(elFont) {
 }
 
 function getMemeList() {
-    console.log(gCanvas.toDataURL());
+    // console.log(gCanvas.toDataURL());
+    if (!loadFromStorage('memeList')) return gMemeList = []
+    gMemeList = loadFromStorage('memeList')
     gMemeList.push(gCanvas.toDataURL())
+    console.log(gMemeList)
     return gMemeList
 }
 
@@ -321,15 +409,51 @@ function renderMemes(memes) {
     })
 }
 
-
 function addMouseListeners() {
-    gElCanvas.addEventListener('mousemove', onMove)
-    gElCanvas.addEventListener('mousedown', onDown)
-    gElCanvas.addEventListener('mouseup', onUp)
+    gCanvas.addEventListener('mousemove', onMove)
+    gCanvas.addEventListener('mousedown', onDown)
+    gCanvas.addEventListener('mouseup', onUp)
 }
 
 function addTouchListeners() {
-    gElCanvas.addEventListener('touchmove', onMove)
-    gElCanvas.addEventListener('touchstart', onDown)
-    gElCanvas.addEventListener('touchend', onUp)
+    gCanvas.addEventListener('touchmove', onMove)
+    gCanvas.addEventListener('touchstart', onDown)
+    gCanvas.addEventListener('touchend', onUp)
+}
+
+
+
+function isTextClicked(clickedPos) {
+    var textWidth = gCtx.measureText(gCurrText.txt).width
+    const { x, y } = gCurrText
+    if (clickedPos.x >= x - textWidth / 2 && clickedPos.x <= x + textWidth / 2 && clickedPos.y >= y - gSize && clickedPos.y <= y) {
+        return true
+    }
+}
+
+
+function setTextDrag(isDrag) {
+    gCurrText.isDrag = isDrag
+}
+
+function moveTextWithGrab(dx, dy) {
+    gCurrText.x += dx
+    gCurrText.y += dy
+}
+
+function renderText() {
+    // console.log(gCurrText)
+    if (!gCurrText.txt) return;
+    const { x, y, txt } = gCurrText
+    drawText(txt, x, y)
+}
+
+function searchKeywords(keyword) {
+    var filteredImgs = gImgs.filter(img => {
+        for (var i = 0; i < img.keywords.length; i++) {
+            if (img.keywords[i].includes(keyword)) return true
+        }
+    })
+    renderImgsToGallery(filteredImgs)
+    addAttributeToImgs()
 }
