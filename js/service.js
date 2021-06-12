@@ -1,14 +1,11 @@
 'use strict';
 var gCurrText = {};
-// id: gMeme.selectedLineIdx,
-// txt: text,
-// x: x,
-// y: y
 var gIsEditing = false;
 var gAlignment = 'center'
 var gSize = 40;
 var gFont = 'Impact'
 var gMemeList;
+var gClickPos;
 const gTouchEvs = ['touchstart', 'touchmove', 'touchend']
 
 
@@ -191,6 +188,7 @@ function submitText(ev, input) {
         ev.preventDefault();
         if (!gIsEditing) {
             drawText(input.value);
+            closeModal()
             gMeme.selectedLineIdx++;
         } else {
             editText(input.value)
@@ -201,7 +199,11 @@ function submitText(ev, input) {
 }
 
 function drawText(text, x = gCanvas.width / 2, y) {
-    //TODO: add randomInt to the default between 50 - 350
+    var elModal = document.querySelector('.modal');
+    if (elModal.style.display === 'block') {
+        x = gClickPos.x;
+        y = gClickPos.y
+    }
     if (!y) {
         switch (gMeme.selectedLineIdx) {
             case 0:
@@ -304,6 +306,15 @@ function deleteLine() {
     if (gMeme.selectedLineIdx < 0) gMeme.selectedLineIdx = 3
     renderCanvas()
 }
+
+function deleteCurrLine() {
+    gMeme.lines.splice((gCurrText.id), 1)
+    console.log(gMeme.lines);
+    gMeme.selectedLineIdx -= 1;
+    if (gMeme.selectedLineIdx < 0) gMeme.selectedLineIdx = 3
+    renderCanvas()
+}
+
 
 function changeSize(elSize) {
     if (elSize > 0) {
@@ -411,6 +422,20 @@ function renderMemes(memes) {
     })
 }
 
+function openModal(canvasClickPos) {
+    //focus wont work here no matter what...
+    // elModal.focus()
+    var elModal = document.querySelector('.modal');
+    elModal.style.display = 'block';
+    elModal.style.left = canvasClickPos.x + 'px';
+    elModal.style.top = canvasClickPos.y + 'px';
+}
+
+function closeModal() {
+    var elModal = document.querySelector('.modal')
+    elModal.style.display = 'none';
+}
+
 function addMouseListeners() {
     gCanvas.addEventListener('mousemove', onMove)
     gCanvas.addEventListener('mousedown', onDown)
@@ -421,6 +446,68 @@ function addTouchListeners() {
     gCanvas.addEventListener('touchmove', onMove)
     gCanvas.addEventListener('touchstart', onDown)
     gCanvas.addEventListener('touchend', onUp)
+}
+
+function onDown(ev) {
+    const pos = getEvPos(ev)
+    if (!isTextClicked(pos)) {
+        var canvasClickPos = getTextBoxPos(ev)
+        openModal(canvasClickPos)
+        return
+    }
+    setTextDrag(true)
+    gStartPos = pos
+    document.querySelector('.canvas').style.cursor = 'grabbing';
+}
+
+
+
+function onMove(ev) {
+    const text = gCurrText;
+    if (text.isDrag) {
+        const pos = getEvPos(ev)
+        const dx = pos.x - gStartPos.x
+        const dy = pos.y - gStartPos.y
+        moveTextWithGrab(dx, dy)
+        deleteCurrLine()
+        console.log(gCurrText)
+        gStartPos = pos;
+        var newPos = {
+            id: gCurrText.id,
+            txt: gCurrText.txt,
+            pos: {
+                x: gCurrText.x,
+                y: gCurrText.y
+            },
+            isDrag: true
+
+        }
+        gMeme.lines.push(newPos)
+    }
+}
+
+function onUp() {
+    setTextDrag(false)
+    document.querySelector('.canvas').style.cursor = 'grab'
+    renderCanvas()
+}
+
+
+
+function getEvPos(ev) {
+    var pos = {
+        x: ev.offsetX,
+        y: ev.offsetY
+    }
+    if (gTouchEvs.includes(ev.type)) {
+        ev.preventDefault()
+        ev = ev.changedTouches[0]
+        pos = {
+            x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
+            y: ev.pageY - ev.target.offsetTop - ev.target.clientTop
+        }
+    }
+    return pos
 }
 
 
@@ -442,11 +529,11 @@ function moveTextWithGrab(dx, dy) {
     gCurrText.x += dx
     gCurrText.y += dy
 }
-
+//not used
 function renderText() {
     console.log(gCurrText)
     if (!gCurrText.txt) return;
-    const { x, y, txt } = gCurrText
+    const { txt, x, y } = gCurrText
     drawText(txt, x, y)
 }
 
@@ -506,9 +593,7 @@ function inflateKeyword(keyword) {
     var style = window.getComputedStyle(elKeyword, null).getPropertyValue('font-size');
     var currentSize = parseFloat(style);
     elKeyword.style.fontSize = (currentSize + 1) + 'px';
-    renderKeywords()
-
-    //i can also use a global variable with the font size and then ++ it each time. both come with very slow performances
+    // renderKeywords()
 }
 
 function toggleKeywords(elBtn) {
@@ -519,4 +604,30 @@ function toggleKeywords(elBtn) {
     } else {
         elBtn.innerText = 'More'
     }
+}
+
+function getTextBoxPos(ev) {
+    var pos = {
+        x: ev.clientX - 400,
+        y: ev.clientY - 170
+    }
+    if (gTouchEvs.includes(ev.type)) {
+        ev.preventDefault()
+        ev = ev.changedTouches[0]
+        pos = {
+            x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft - 40,
+            y: ev.pageY - ev.target.offsetTop - ev.target.clientTop - 120
+        }
+        gClickPos = {
+            x: pos.x + 20,
+            y: pos.y + 40
+        };
+        return pos
+    }
+    console.log(pos);
+    gClickPos = {
+        x: pos.x,
+        y: pos.y - 100
+    };
+    return pos
 }

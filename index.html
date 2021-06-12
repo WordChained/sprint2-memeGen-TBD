@@ -47,6 +47,7 @@
         <div class="editor-container">
             <div class="canvas-container">
                 <canvas class="canvas" onclick="OnTextPick(event)"></canvas>
+                <input type="text" class="modal" onkeydown="onSubmitText(event,this)"></input>
             </div>
             <div class="interface">
                 <div class="inner-grid">
@@ -65,7 +66,7 @@
                     <button value="center" class="align-center" onclick="onAlign(this.value)"></button>
                     <button value="left" class="align-right" onclick="onAlign(this.value)"></button>
                 </div>
-                <input class="meme-text" type="text" oninput="onTextInput(this.value)" onkeydown="onSubmitText(event,this)">
+                <input class="meme-text" type="text" oninput="onTextInput(this.value)" onkeydown="onSubmitText(event,this)" onfocus="closeModal()">
 
                 <button class="clear" onclick="onClearCanvas()">❌</button>
                 <button class="delete-row" onclick="onDelete()"></button>
@@ -87,7 +88,6 @@
                     <a class="download" onclick="onDownloadCanvas(this)" download="file-name"></a>
                 </div>
             </div>
-            <footer></footer>
         </div>
     </div>
 </body>

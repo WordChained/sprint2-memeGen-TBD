@@ -34,8 +34,9 @@ function onTextInput(text) {
 }
 
 //when we hit enter
-function onSubmitText(ev, input) {
+function onSubmitText(ev, input, ) {
     submitText(ev, input)
+
 }
 
 function onSizeChange(elSize) {
@@ -118,47 +119,6 @@ function addListeners() {
         resizeCanvas()
         renderCanvas()
     })
-}
-
-function onDown(ev) {
-    const pos = getEvPos(ev)
-    if (!isTextClicked(pos)) return
-    setTextDrag(true)
-    gStartPos = pos
-    document.querySelector('.canvas').style.cursor = 'grabbing';
-}
-
-function onMove(ev) {
-    const text = gCurrText;
-    if (text.isDrag) {
-        const pos = getEvPos(ev)
-        const dx = pos.x - gStartPos.x
-        const dy = pos.y - gStartPos.y
-        moveTextWithGrab(dx, dy)
-        gStartPos = pos
-    }
-}
-
-function onUp() {
-    setTextDrag(false)
-    document.querySelector('.canvas').style.cursor = 'grab'
-    renderCanvas()
-}
-
-function getEvPos(ev) {
-    var pos = {
-        x: ev.offsetX,
-        y: ev.offsetY
-    }
-    if (gTouchEvs.includes(ev.type)) {
-        ev.preventDefault()
-        ev = ev.changedTouches[0]
-        pos = {
-            x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
-            y: ev.pageY - ev.target.offsetTop - ev.target.clientTop
-        }
-    }
-    return pos
 }
 
 function onSearch(elKeyword) {
