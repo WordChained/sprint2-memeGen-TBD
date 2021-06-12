@@ -395,4 +395,7 @@
             justify-content: space-between;
             padding-inline: 15px;
         }
+        .magnifier {
+            left: 220px
+        }
     }
