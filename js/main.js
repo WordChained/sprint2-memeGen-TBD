@@ -6,6 +6,7 @@ var gStartPos
 function onInit() {
     // createImages(18);
     renderImgsToGallery(gImgs)
+    renderKeywords()
     addAttributeToImgs()
     gCanvas = document.querySelector('.canvas');
     gCtx = gCanvas.getContext('2d');
@@ -88,7 +89,7 @@ function onColorChange(elColor) {
 }
 
 function onAlign(elDirection) {
-
+    getDirection(elDirection)
 }
 
 function onDelete() {
@@ -164,4 +165,8 @@ function getEvPos(ev) {
 function onSearch(elKeyword) {
     console.log(elKeyword)
     searchKeywords(elKeyword)
+}
+
+function onImgInput(ev) {
+    loadImageFromInput(ev, renderCanvas)
 }

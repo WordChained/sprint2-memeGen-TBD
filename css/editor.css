@@ -142,6 +142,27 @@
             border-radius: 10px;
             box-shadow: 1px 1px 3px #c4cccb;
         }
+        input[type="file"] {
+            display: none;
+        }
+        .custom-file-upload {
+            position: relative;
+            width: 56px;
+            height: 52px;
+            grid-row: 2 / 3;
+            grid-column: 7/8;
+            background-color: rgb(251, 226, 0);
+            border-radius: 10px;
+            box-shadow: 1px 1px 3px #c4cccb;
+            cursor: pointer;
+            background-image: url("../img/upload-file.png");
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        .custom-file-upload:hover {
+            background-color: rgb(251, 247, 0);
+        }
         .font-family {
             /* width: 56px; */
             height: 3.25em;
@@ -400,6 +421,7 @@
             height: 52px;
             border-radius: 10px;
             box-shadow: 1px 1px 3px #c4cccb;
+            font-size: 1.5rem;
         }
         .up {
             grid-column: span 1;

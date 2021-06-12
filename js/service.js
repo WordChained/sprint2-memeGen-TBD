@@ -451,9 +451,54 @@ function renderText() {
 function searchKeywords(keyword) {
     var filteredImgs = gImgs.filter(img => {
         for (var i = 0; i < img.keywords.length; i++) {
+            if (img.keywords[i] === keyword) inflateKeyword(keyword);
             if (img.keywords[i].includes(keyword)) return true
         }
     })
     renderImgsToGallery(filteredImgs)
     addAttributeToImgs()
+}
+
+function getDirection(elDirection) {
+    gAlignment = elDirection
+    renderCanvas()
+}
+
+function loadImageFromInput(ev, onImageReady) {
+    var reader = new FileReader()
+    reader.onload = function(event) {
+        var img = new Image()
+        img.onload = onImageReady.bind(null, img)
+        img.src = event.target.result
+        gImg = img
+    }
+    reader.readAsDataURL(ev.target.files[0])
+}
+
+function renderKeywords() {
+    var elKeywordsContainer = document.querySelector('.keywords-container')
+    var myArray = []
+    for (var j = 0; j < gImgs.length; j++) {
+        var img = gImgs[j]
+        for (var i = 0; i < img.keywords.length; i++) {
+            myArray.push(img.keywords[i])
+        }
+    }
+    console.log(myArray)
+    let unique = [...new Set(myArray)];
+    console.log(unique)
+    unique.map(keyword => {
+        elKeywordsContainer.innerHTML += `<article class = "keyword ${keyword}"> ${keyword}</article>`
+    })
+}
+
+//TODO: add 'more' button. make it expand the shown keywords
+
+//TODO: set size of each keyword (start with random sizes)
+function inflateKeyword(keyword) {
+    var elKeyword = document.querySelector(`.keyword.${keyword}`)
+    var style = window.getComputedStyle(elKeyword, null).getPropertyValue('font-size');
+    var currentSize = parseFloat(style);
+    elKeyword.style.fontSize = (currentSize + 1) + 'px';
+    renderKeywords()
 }

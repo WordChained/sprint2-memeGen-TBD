@@ -83,8 +83,9 @@
     /* Track */
     
     .gallery-container::-webkit-scrollbar-track {
-        background: #383B42;
-        border-radius: 10px;
+        border: 5px solid #383B42;
+        background: #22252c;
+        border-radius: 20px;
     }
     /* Handle */
     
@@ -92,8 +93,8 @@
         background: rgb(48, 187, 115);
         background: linear-gradient(90deg, rgba(48, 187, 115, 1) 0%, rgba(29, 168, 153, 1) 52%, rgba(15, 155, 180, 1) 100%);
         border-radius: 3em;
-        border: 10px solid #22252C;
-        border-right: 10px solid #383B42;
+        border: 2px solid #22252C;
+        border-right: 2px solid #383B42;
         background-clip: padding-box;
     }
     /* ----------------------------------------------------------- */
@@ -120,12 +121,15 @@
         font-size: 1.06rem;
     }
     /* ---------------------------------------- */
+    /* search */
     
     .search-grid {
         display: grid;
-        grid-template-columns: 400px 1fr;
+        grid-template-columns: 400px 1fr 80px;
         grid-template-rows: auto;
         grid-column: 1/-1;
+        justify-content: center;
+        gap: 5px;
     }
     
     .search-box {
@@ -141,6 +145,7 @@
         color: #8B8C8E;
         background-color: #22252C;
         align-self: center;
+        justify-content: center;
         padding: 10px;
         font-size: larger;
         margin-top: 15px;
@@ -154,6 +159,48 @@
         width: 30px;
         left: 350px
     }
+    /* ----------------------------------------------- */
+    /* keywords */
+    
+    .keywords-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(30px, 150px));
+        grid-auto-rows: 50px;
+        justify-content: center;
+        width: 100%;
+        position: relative;
+        grid-column: 2 / 3;
+        grid-row: 1/2;
+        border-radius: 3em;
+        color: #8B8C8E;
+        background-color: #22252C;
+        /* align-self: center; */
+        padding: 10px;
+        font-size: larger;
+        margin-top: 15px;
+        outline: none;
+        height: 60px;
+        margin: 0;
+        margin-top: 5px;
+        overflow: hidden;
+    }
+    
+    .keywords-container .keyword {
+        justify-self: center;
+        align-self: center;
+    }
+    
+    .more-keywords {
+        border-radius: 3em;
+        height: 40px;
+        margin-top: 15px;
+        background: linear-gradient(90deg, rgba(48, 187, 115, 1) 0%, rgba(29, 168, 153, 1) 52%, rgba(15, 155, 180, 1) 100%);
+        color: white;
+        font-family: popins-medium, sans-serif;
+        border: none;
+    }
+    /* ----------------------------------------------- */
+    /* nav-bar */
     
     .nav-bar {
         display: grid;
@@ -162,9 +209,10 @@
         grid-row: span 1;
         color: #FFFFFF;
         align-self: center;
-        gap: 1em;
+        gap: 2em;
         text-align: center;
         font-family: popins-medium, sans-serif;
+        font-size: 1.125rem;
     }
     
     .nav-bar>* {
@@ -174,6 +222,7 @@
         transition: background-color 0.3s;
         cursor: pointer;
         align-self: center;
+        font-size: 1.375rem;
     }
     
     .nav-bar>*:hover {
@@ -182,6 +231,14 @@
         padding-top: 10px;
         padding-bottom: 10px;
         border-radius: 3em;
+    }
+    /* --------------------------------------------------------- */
+    /* gallery */
+    
+    article.gallery,
+    article.memes,
+    article.about {
+        width: 150px;
     }
     
     .gallery-container img.meme {
@@ -201,15 +258,11 @@
         grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
         gap: 1rem;
     }
+    /* --------------------------------------------------------- */
     
     @media (max-width: 1529px) {
         .gallery-container {
             grid-column: 3/11;
-        }
-    }
-    
-    @media (max-width: 1529px) {
-        .gallery-container {
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             padding-left: 5%;
         }
@@ -261,6 +314,8 @@
         /* Track */
         .gallery-container::-webkit-scrollbar-track {
             border-radius: 5px;
+            border: 5px solid #383B42;
+            background: #22252c;
         }
         /* Handle */
         .gallery-container::-webkit-scrollbar-thumb {
@@ -312,13 +367,16 @@
             font-size: 1.6rem
         }
         .btn-menu {
-            background: none;
-            color: white;
-            font-weight: 600;
+            height: 55px;
+            width: 55px;
+            background: white;
+            border-radius: 100%;
+            color: #29B580;
             display: block;
             border: none;
             cursor: pointer;
-            font-size: 1.6rem
+            font-size: 2.3rem;
+            align-self: center;
         }
         .btn-menu.close {
             display: none;

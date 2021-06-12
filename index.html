@@ -35,11 +35,8 @@
                 <div class="search-box">
                     <input name="search" type="text" class="search" placeholder="Search for a meme..." oninput="onSearch(this.value)"><img src="img/magnifier.png" class="magnifier">
                 </div>
-                <!-- <div class="search-terms">
-                    <button></button>
-                    <button></button>
-                    <button></button>
-                </div> -->
+                <div class="keywords-container"></div>
+                <button class="more-keywords">More</button>
             </div>
             <div class="image-grid">
 
@@ -62,15 +59,20 @@
                          <option value="Arial">Arial</option>
                         <option value="David">David</option>
                     </select>
+                    <!-- alignments are opposits. will need to fix -->
                     <input type="color" class="color" onclick="onColorChange(this.value)"></input>
-                    <button value="left" class="align-left" onclick="onAlign(this.value)"></button>
+                    <button value="right" class="align-left" onclick="onAlign(this.value)"></button>
                     <button value="center" class="align-center" onclick="onAlign(this.value)"></button>
-                    <button value="right" class="align-right" onclick="onAlign(this.value)"></button>
+                    <button value="left" class="align-right" onclick="onAlign(this.value)"></button>
                 </div>
                 <input class="meme-text" type="text" oninput="onTextInput(this.value)" onkeydown="onSubmitText(event,this)">
 
                 <button class="clear" onclick="onClearCanvas()">❌</button>
                 <button class="delete-row" onclick="onDelete()"></button>
+                <label class="custom-file-upload">
+                    <input type="file" id="file-upload" class="add-file" name="image" onchange="onImgInput(event)" />
+                </label>
+
                 <button value="1" class="move" onclick="onSwitchLine(this.value)"></button>
 
 
