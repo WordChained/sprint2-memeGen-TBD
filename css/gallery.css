@@ -172,8 +172,8 @@
         grid-column: 2 / 3;
         grid-row: 1/2;
         border-radius: 3em;
-        color: #8B8C8E;
-        background-color: #22252C;
+        color: white;
+        background-color: #87898D;
         /* align-self: center; */
         padding: 10px;
         font-size: larger;
@@ -302,9 +302,9 @@
             padding-left: 4%;
         }
         .image-grid {
-            gap: 2px;
-            width: 500px;
-            grid-template-columns: 210px 210px;
+            gap: 1px;
+            width: 300px;
+            grid-template-columns: 155px 155px;
         }
         /* scrollbar */
         .gallery-container::-webkit-scrollbar {
@@ -380,5 +380,19 @@
         }
         .btn-menu.close {
             display: none;
+        }
+        .search-grid {
+            display: flex;
+            flex-flow: column;
+            align-items: flex-start;
+        }
+        .more-keywords {
+            width: 100px;
+            align-self: flex-end;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            padding-inline: 15px;
         }
     }
