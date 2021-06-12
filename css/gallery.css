@@ -12,6 +12,11 @@
         src: url("../fonts/popins/Poppins-Medium.ttf");
     }
     
+    @font-face {
+        font-family: popins-regular;
+        src: url("../fonts/popins/Poppins-Regular.ttf");
+    }
+    
     .main-screen {
         position: fixed;
         top: 0;
@@ -183,11 +188,13 @@
         margin: 0;
         margin-top: 5px;
         overflow: hidden;
+        transition: height 0.3s;
     }
     
     .keywords-container .keyword {
         justify-self: center;
         align-self: center;
+        font-family: popins-regular;
     }
     
     .more-keywords {
@@ -197,7 +204,18 @@
         background: linear-gradient(90deg, rgba(48, 187, 115, 1) 0%, rgba(29, 168, 153, 1) 52%, rgba(15, 155, 180, 1) 100%);
         color: white;
         font-family: popins-medium, sans-serif;
+        font-size: 1.125rem;
         border: none;
+    }
+    
+    .keyword {
+        cursor: pointer;
+    }
+    
+    .overflow {
+        overflow: visible;
+        height: 100%;
+        transition: height 0.3s;
     }
     /* ----------------------------------------------- */
     /* nav-bar */
@@ -300,6 +318,10 @@
         }
         .gallery-container {
             padding-left: 4%;
+            overflow: visible;
+            margin-left: 2%;
+            width: 320px;
+            padding: 5px
         }
         .image-grid {
             gap: 1px;
@@ -307,21 +329,21 @@
             grid-template-columns: 155px 155px;
         }
         /* scrollbar */
-        .gallery-container::-webkit-scrollbar {
+        /* .gallery-container::-webkit-scrollbar {
             width: 15px;
             border: 10px solid #383B42;
-        }
+        } */
         /* Track */
-        .gallery-container::-webkit-scrollbar-track {
+        /* .gallery-container::-webkit-scrollbar-track {
             border-radius: 5px;
             border: 5px solid #383B42;
             background: #22252c;
-        }
+        } */
         /* Handle */
-        .gallery-container::-webkit-scrollbar-thumb {
+        /* .gallery-container::-webkit-scrollbar-thumb {
             border: 1px solid #22252C;
             border-right: 1px solid #383B42;
-        }
+        } */
         /* ----------------------------------------------------------- */
         /* nav-bar */
         .nav-bar {

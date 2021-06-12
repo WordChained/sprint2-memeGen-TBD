@@ -132,7 +132,6 @@ function onMove(ev) {
     const text = gCurrText;
     if (text.isDrag) {
         const pos = getEvPos(ev)
-        console.log(pos);
         const dx = pos.x - gStartPos.x
         const dy = pos.y - gStartPos.y
         moveTextWithGrab(dx, dy)
@@ -169,4 +168,8 @@ function onSearch(elKeyword) {
 
 function onImgInput(ev) {
     loadImageFromInput(ev, renderCanvas)
+}
+
+function onShowMore(elBtn) {
+    toggleKeywords(elBtn)
 }

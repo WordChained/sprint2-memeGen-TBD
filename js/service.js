@@ -145,17 +145,17 @@ function renderCanvas() {
     loadImgToCanvas()
     gCtx.save()
     setTimeout(() => {
-        gMeme.lines.map(meme => {
-            gCtx.lineWidth = 2
-            gCtx.strokeStyle = 'black'
-            gCtx.fillStyle = 'white'
-            gCtx.font = gSize + `px ${gFont}`
-            gCtx.textAlign = gAlignment
-            gCtx.fillText(meme.txt, meme.pos.x, meme.pos.y)
-            gCtx.strokeText(meme.txt, meme.pos.x, meme.pos.y)
-        })
-    }, 1)
-    renderText()
+            gMeme.lines.map(meme => {
+                gCtx.lineWidth = 2
+                gCtx.strokeStyle = 'black'
+                gCtx.fillStyle = 'white'
+                gCtx.font = gSize + `px ${gFont}`
+                gCtx.textAlign = gAlignment
+                gCtx.fillText(meme.txt, meme.pos.x, meme.pos.y)
+                gCtx.strokeText(meme.txt, meme.pos.x, meme.pos.y)
+            })
+        }, 1)
+        // if (gMeme.lines.length) renderText()
     gCtx.restore()
 }
 
@@ -298,7 +298,10 @@ function clearCanvas() {
 }
 
 function deleteLine() {
-    gMeme.lines.splice(gCurrText.id, 1)
+    gMeme.lines.splice((gMeme.lines.length - 1), 1)
+    console.log(gMeme.lines);
+    gMeme.selectedLineIdx -= 1;
+    if (gMeme.selectedLineIdx < 0) gMeme.selectedLineIdx = 3
     renderCanvas()
 }
 
@@ -342,7 +345,6 @@ function moveText(value) {
     //BUG:this deletes previous lines if we moved a line before
     console.log(gMeme.lines)
     deleteLine()
-    renderCanvas()
     setTimeout(() => {
         gCtx.lineWidth = 2
         gCtx.strokeStyle = 'black'
@@ -442,7 +444,7 @@ function moveTextWithGrab(dx, dy) {
 }
 
 function renderText() {
-    // console.log(gCurrText)
+    console.log(gCurrText)
     if (!gCurrText.txt) return;
     const { x, y, txt } = gCurrText
     drawText(txt, x, y)
@@ -477,28 +479,44 @@ function loadImageFromInput(ev, onImageReady) {
 
 function renderKeywords() {
     var elKeywordsContainer = document.querySelector('.keywords-container')
-    var myArray = []
+    var sortedKeywords = []
     for (var j = 0; j < gImgs.length; j++) {
         var img = gImgs[j]
         for (var i = 0; i < img.keywords.length; i++) {
-            myArray.push(img.keywords[i])
+            sortedKeywords.push(img.keywords[i])
         }
     }
-    console.log(myArray)
-    let unique = [...new Set(myArray)];
-    console.log(unique)
+    var unique = [...new Set(sortedKeywords)];
     unique.map(keyword => {
-        elKeywordsContainer.innerHTML += `<article class = "keyword ${keyword}"> ${keyword}</article>`
+        elKeywordsContainer.innerHTML += `<article class = "keyword ${keyword}" onclick="inflateKeyword(this.innerText)" style="font-size: ${getRandomInt(16, 32)}px"> ${keyword}</article>`
     })
+}
+
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
 }
 
 //TODO: add 'more' button. make it expand the shown keywords
 
-//TODO: set size of each keyword (start with random sizes)
+//set size of each keyword
 function inflateKeyword(keyword) {
     var elKeyword = document.querySelector(`.keyword.${keyword}`)
     var style = window.getComputedStyle(elKeyword, null).getPropertyValue('font-size');
     var currentSize = parseFloat(style);
     elKeyword.style.fontSize = (currentSize + 1) + 'px';
     renderKeywords()
+
+    //i can also use a global variable with the font size and then ++ it each time. both come with very slow performances
+}
+
+function toggleKeywords(elBtn) {
+    var elKeywordsContainer = document.querySelector('.keywords-container');
+    elKeywordsContainer.classList.toggle('overflow');
+    if (elKeywordsContainer.classList.contains('overflow')) {
+        elBtn.innerText = 'Less'
+    } else {
+        elBtn.innerText = 'More'
+    }
 }
