@@ -413,7 +413,7 @@
             position: relative;
             width: 50px;
             height: 52px;
-            grid-row: 2 / 3;
+            grid-row: 1 / 2;
             grid-column: 4/5;
             background-color: rgb(251, 226, 0);
             border-radius: 10px;
