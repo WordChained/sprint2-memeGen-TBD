@@ -559,7 +559,8 @@ function loadImageFromInput(ev, onImageReady) {
         var img = new Image()
         img.onload = onImageReady.bind(null, img)
         img.src = event.target.result
-        gImg = img
+        drawImg(img.src)
+        resizeCanvas()
     }
     reader.readAsDataURL(ev.target.files[0])
 }
