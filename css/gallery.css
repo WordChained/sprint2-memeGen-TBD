@@ -295,7 +295,7 @@
     
     @media (max-width: 590px) {
         .gallery-container img.meme {
-            width: 190px;
+            width: 150px;
             align-self: center;
         }
         .gallery-container {

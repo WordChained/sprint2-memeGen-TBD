@@ -295,21 +295,20 @@
             opacity: 0.3;
             border: none;
             border-radius: 20%;
-            height: 450px;
-            width: 490px;
+            height: 400px;
+            width: 100%;
             background-repeat: no-repeat;
             z-index: -1;
             box-shadow: 0 0 10px 20px #22252C inset;
-            margin-left: 2%;
-            margin-top: 20px
+            margin-top: 10px
         }
         .canvas-container {
             display: flex;
             position: absolute;
             top: 15%;
             left: 15%;
-            width: 350px;
-            height: 350px;
+            width: 300px;
+            height: 300px;
         }
         .canvas {
             border-radius: 20px;
@@ -317,17 +316,18 @@
             cursor: grab
         }
         .interface {
+            justify-content: center;
             display: grid;
             border: rgba(51, 51, 51, 0.541) solid 3px;
             border-radius: 10px;
-            grid-template-areas: "text text text text text" ". move clear delete ." "inner inner inner inner inner" "inner inner inner inner inner" "inner inner inner inner inner" "footer footer footer footer footer";
-            grid-template-rows: repeat(6, 1fr);
-            grid-template-columns: repeat(5, 1fr);
+            grid-template-areas: "text text text text" "move clear delete file " "inner inner inner inner " "inner inner inner inner" "inner inner inner inner " "footer footer footer footer";
+            grid-template-rows: repeat(auto-fit, 1fr);
+            grid-template-columns: repeat(4, 1fr);
             position: absolute;
-            top: 57%;
+            top: 50%;
             left: 15%;
-            width: 350px;
-            height: 350px;
+            width: 300px;
+            height: 300px;
             gap: 4px;
             padding: 5px
         }
@@ -342,7 +342,10 @@
         .inner-grid {
             grid-area: inner;
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
+            grid-template-columns: repeat(auto-fit, 1fr);
+        }
+        .inner-grid>*:not(.font-family) {
+            justify-self: center;
         }
         .plus {
             grid-column: span 1;
@@ -370,6 +373,30 @@
             background-position: -822px -205px;
             border-radius: 10px;
             box-shadow: 1px 1px 3px #c4cccb;
+            justify-self: center;
+        }
+        input[type="file"] {
+            display: none;
+        }
+        .custom-file-upload {
+            grid-area: file;
+            position: relative;
+            width: 50px;
+            height: 52px;
+            grid-row: 2 / 3;
+            grid-column: 4/5;
+            background-color: rgb(251, 226, 0);
+            border-radius: 10px;
+            box-shadow: 1px 1px 3px #c4cccb;
+            cursor: pointer;
+            background-image: url("../img/upload-file.png");
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            justify-self: center;
+        }
+        .custom-file-upload:hover {
+            background-color: rgb(251, 247, 0);
         }
         .clear {
             grid-area: clear;
@@ -378,6 +405,7 @@
             background-color: rgb(231, 69, 96);
             border-radius: 10px;
             box-shadow: 1px 1px 3px #c4cccb;
+            justify-self: center;
         }
         .delete-row {
             grid-area: delete;
@@ -387,9 +415,10 @@
             background-position: -980px -205px;
             border-radius: 10px;
             box-shadow: 1px 1px 3px #c4cccb;
+            justify-self: center;
         }
         .font-family {
-            grid-column: span 5;
+            grid-column: span 4;
             height: 3.25em;
             border-radius: 10px;
             box-shadow: 1px 1px 3px #c4cccb;
@@ -460,26 +489,29 @@
             display: grid;
             grid-row: 6;
             grid-area: footer;
-            grid-template-columns: 1fr 10px 1fr;
+            grid-template-columns: repeat(2, minmax(3em, 4em));
+            justify-content: space-around;
         }
         .share {
-            grid-column: 1/2;
-            width: 10.15rem;
-            height: 52px;
+            /* grid-column: 1/2; */
+            width: 3.15rem;
+            height: 42px;
             background-image: url("../img/meme-editor.png");
-            background-position: -730px -573px;
-            border-radius: 20px;
+            background-position: -733px -578px;
+            border-radius: 10px;
             box-shadow: 1px 1px 3px #c4cccb;
-            border: none
+            border: none;
+            justify-self: center;
         }
         .download {
-            grid-column: 3/4;
-            width: 10.15rem;
-            height: 52px;
+            /* grid-column: 3/4; */
+            width: 3.15rem;
+            height: 42px;
             border: none;
-            border-radius: 3em;
+            border-radius: 10px;
             background-image: url("../img/meme-editor.png");
-            background-position: -956px -573px;
-            cursor: pointer
+            background-position: -953px -579px;
+            cursor: pointer;
+            justify-self: center;
         }
     }
